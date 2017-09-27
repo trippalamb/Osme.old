@@ -27,14 +27,14 @@ In this way the need to convert any specific language to another specific langua
 An atom is a singular unit of information being referenced via a name or literal representation of a native type 
 
 #### Examples
-* ```real```  (reserved keyword for native type) 
-* ```x```     (variable name) 
-* ```Car_T``` (type name) 
-* ```car```   (variable name) 
-* ```drive``` (function name) 
-* ```574.0``` (real literal) 
-* ```"cat"``` (string literal) 
-* ```true```  (reserved keyword for a boolean value) 
+* `real`  (reserved keyword for native type) 
+* `x`     (variable name) 
+* `Car_T` (type name) 
+* `car`   (variable name) 
+* `drive` (function name) 
+* `574.0` (real literal) 
+* `"cat"` (string literal) 
+* `true`  (reserved keyword for a boolean value) 
 
 ### Expression
 An expression is a series of one or more atoms modified by one or more operators 
@@ -82,9 +82,9 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 
 #### Comprehensive List
 * addition 
-> `+` 
+> + 
 * simple increment 
-> `++` 
+> ++ 
 * complex increment 
 > += 
 * subtraction 
@@ -98,13 +98,13 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 * multiplicative assignment 
 > \*=
 * division 
-> \
+> \\
 * divisive assignment 
 > \=
 * exponent 
 > \*\*
 * nth root 
-> \\
+> \\\\
 * modulus 
 > %
 * parentheses 
@@ -114,7 +114,7 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 * logical and 
 > &&
 * logical or 
-> ||
+> \|\|
 * not 
 > !
 * not equivalent 
@@ -198,7 +198,7 @@ that is unable to be used in different context while writing in the language
 
 type[, options]* :: name 
 
-examples
+### Examples 
 `real :: x        # x is declared as an instance of the real number type`  
 `int[3] :: y      # y is declared as an instance of an array of length 3 of the integer type`  
 `real[:] :: z     # z is declared as an instance of an array of variable length of the real number type`  
