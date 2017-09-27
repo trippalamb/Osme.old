@@ -27,14 +27,14 @@ In this way the need to convert any specific language to another specific langua
 An atom is a singular unit of information being referenced via a name or literal representation of a native type 
 
 #### Examples
-* real  (reserved keyword for native type) 
-* x     (variable name) 
-* Car_T (type name) 
-* car   (variable name) 
-* drive (function name) 
-* 574.0 (real literal) 
-* "cat" (string literal) 
-* true  (reserved keyword for a boolean value) 
+* ```real```  (reserved keyword for native type) 
+* ```x```     (variable name) 
+* ```Car_T``` (type name) 
+* ```car```   (variable name) 
+* ```drive``` (function name) 
+* ```574.0``` (real literal) 
+* ```"cat"``` (string literal) 
+* ```true```  (reserved keyword for a boolean value) 
 
 ### Expression
 An expression is a series of one or more atoms modified by one or more operators 
@@ -44,6 +44,12 @@ An expression is a series of one or more atoms modified by one or more operators
 * ```z = x + y ```
 * ```b = (apple !== banana) ```
 * ```pressure = calcPressure() ``` 
+*
+```
+if(a < b)
+   ...
+end if
+```  
 
 ### Native Type
 A native type is a basic variable type defined and contained within the programming language of Osme. These words are reserved keywords and are unable to be redefined throughout the execution of the program.
@@ -51,14 +57,14 @@ A native type is a basic variable type defined and contained within the programm
 #### Comprehensive List
 
 + Number 
-  * int|integer 
+  * int | integer 
   * real 
   * complex 
 + String 
-  * char|character 
-  * regex| regularExpression 
+  * char | character 
+  * regex | regularExpression 
 + Logical 
-  * bool|boolean 
+  * bool | boolean 
 
 ### Native Container|Compound Type
 A native container type is a compound variable type defined and contained within the programming language of Osme. The defining characteristic difference from a basic variable type being that a compound variable type contains references to the basic types (and possibly other compound types and/or expressions) within its definition.
@@ -68,17 +74,19 @@ A native container type is a compound variable type defined and contained within
 + type
 + array
 + Procedure
-  * fxn|function 
-  * sub|subroutine 
+  * fxn | function 
+  * sub | subroutine 
 
 ### Native Operator
 A native operator is a symbol (defined internal to the Osme language) that represents a procedure to act upon one or more atoms to either return a new atom or to modify one or more of the argument atoms
 
 #### Comprehensive List
-* +  "addition" 
-* ++ "simple increment" 
+* \+  
+> addition 
+* ++ 
+> simple increment
 * += "complex increment" 
-* -  "subtraction" 
+* \-  "subtraction" 
 * -- "simple decrement" 
 * -= "complex decrement" 
 * *  "multiplication" 
