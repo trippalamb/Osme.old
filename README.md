@@ -82,9 +82,9 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 
 #### Comprehensive List
 * addition 
-> + 
+> \+ 
 * simple increment 
-> ++ 
+> \+\+ 
 * complex increment 
 > += 
 * subtraction 
@@ -100,7 +100,7 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 * division 
 > \\
 * divisive assignment 
-> \=
+> \\\=
 * exponent 
 > \*\*
 * nth root 
