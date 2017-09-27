@@ -44,7 +44,7 @@ An expression is a series of one or more atoms modified by one or more operators
 * ```z = x + y ```
 * ```b = (apple !== banana) ```
 * ```pressure = calcPressure() ``` 
-*
+* If statement
 ```
 if(a < b)
    ...
@@ -85,8 +85,10 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 > addition 
 * ++ 
 > simple increment
-* += "complex increment" 
-* \-  "subtraction" 
+* complex increment
+> += 
+* subtraction
+> \-
 * -- "simple decrement" 
 * -= "complex decrement" 
 * *  "multiplication" 
@@ -169,11 +171,11 @@ that is unable to be used in different context while writing in the language
 type[, options]* :: name 
 
 examples
-real :: x        # x is declared as an instance of the real number type
-int[3] :: y      # y is declared as an instance of an array of length 3 of the integer type
-real[:] :: z     # z is declared as an instance of an array of variable length of the real number type
-Car_T :: car     # car is declared as an instance of the compound type Car_T (which happens to be an object)
-Drive_F :: drive # drive is declared as an instance of the compound type Drive_F (which happens to be an function)
+```real :: x```        # x is declared as an instance of the real number type
+`int[3] :: y`      # y is declared as an instance of an array of length 3 of the integer type
+`real[:] :: z`     # z is declared as an instance of an array of variable length of the real number type
+`Car_T :: car`     # car is declared as an instance of the compound type Car_T (which happens to be an object)
+`Drive_F :: drive` # drive is declared as an instance of the compound type Drive_F (which happens to be an function)
 
 ## Define Syntax of Osme
 ### Array
