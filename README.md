@@ -10,7 +10,7 @@ The input modules consist of a set of regexes that interpret the input language.
 In this way the need to convert any specific language to another specific language is removed and each language will only need to describe it's own input and output.
 
 ## Tenets of Osme
-* One of the main tenants is that readability and maintainability are the responsibility of the programmer 
+* Readability and maintainability are the responsibility of the programmer 
 * The rules of a programming language should at the very least be internally consistant 
 * Mathematical operations should be easy and natural to write 
 * Artificially limiting the syntax rules of the language is silly 
@@ -40,13 +40,13 @@ An atom is a singular unit of information being referenced via a name or literal
 An expression is a series of one or more atoms modified by one or more operators 
 
 #### Examples
-* x = y 
-* z = x + y 
-* b = (apple !== banana) 
-* pressure = calcPressure() 
-* if(i == 1)
+* ```x = y ```
+* ```z = x + y ```
+* ```b = (apple !== banana) ```
+* ```pressure = calcPressure() ```
+* ```if(i == 1)
   ...
-end if  
+end if  ```  
 
 ### Native Type
 A native type is a basic variable type defined and contained within the programming language of Osme. These words are reserved keywords and are unable to be redefined throughout the execution of the program.
@@ -54,14 +54,14 @@ A native type is a basic variable type defined and contained within the programm
 #### Comprehensive List
 
 + Number 
-* int|integer 
-* real 
-* complex 
+  * int|integer 
+  * real 
+  * complex 
 + String 
-* char|character 
-* regex| regularExpression 
+  * char|character 
+  * regex| regularExpression 
 + Logical 
-* bool|boolean 
+  * bool|boolean 
 
 ### Native Container|Compound Type
 A native container type is a compound variable type defined and contained within the programming language of Osme. The defining characteristic difference from a basic variable type being that a compound variable type contains references to the basic types (and possibly other compound types and/or expressions) within its definition.
@@ -71,8 +71,8 @@ A native container type is a compound variable type defined and contained within
 + type
 + array
 + Procedure
-* fxn|function 
-* sub|subroutine 
+  * fxn|function 
+  * sub|subroutine 
 
 ### Native Operator
 A native operator is a symbol (defined internal to the Osme language) that represents a procedure to act upon one or more atoms to either return a new atom or to modify one or more of the argument atoms
@@ -103,8 +103,8 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 * ~= "truthy equivalence" 
 * <  "less than" 
 * <= "less than or equal" 
-* >  "greater than" 
-* >= "greater than or equal to" 
+* \>  "greater than" 
+* \>= "greater than or equal to" 
 * a?b:c "ternary" 
 * a<[=]b<[=]c "between (less than)" 
 * a>[=]b>[=]c "between (greater than)" 
@@ -293,10 +293,10 @@ end type Car_T
 
 ## Definitions of Types
 ### Number
-regex: ```(\d+(?:[\.][\d]*)?)```
+regex: ```javascript/(\d+(?:[\.][\d]*)?)/```  
 options: g
 
 ## Definitions of Operators
 ### template operator ...
-regex: ```(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?```
+regex: ```javascript/(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/```  
 options:gi
