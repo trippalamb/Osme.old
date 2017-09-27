@@ -134,7 +134,7 @@ A reserved keyword is a word that has meaning internal to the language Osme
 that is unable to be used in different context while writing in the language
 
 #### Comprehensive List
-* all internal typings 
+* all internal types
 * by "optional argument for the generated sequence operator" 
 * do [while] "loop logic structure" 
 * if/else if/else "conditional logic structure (if)" 
@@ -154,11 +154,6 @@ that is unable to be used in different context while writing in the language
 * inout 
 * this "always refers to the encompassing scope (one level up from current)" 
 * end "modifier to loop and conditional keywords to close them" 
-
-
-
-
-
 
 
 ## Declaration Syntax of Osme
@@ -224,9 +219,11 @@ x[3,:] = [3,6,9]
 ```
 
 ### Function
-regex: fxn\s+(.+?)\(([\s\S]*?)\)\s*return\((.+?)\)([\s\S]*)end\s*fxn\s+(.*)
-options: gmi
-
+regex: 
+```javascript
+/fxn\s+(.+?)\(([\s\S]*?)\)\s*return\((.+?)\)([\s\S]*)end\s*fxn\s+(.*)/gmi
+```
+Example:
 ```
 fxn add(a, b) return(c)
   
@@ -243,8 +240,12 @@ end fxn add
 
 
 ### Subroutine
-regex: sub\s+(.+?)\(([\s\S]*?)\)([\s\S]*)end\s*sub\s+(.*)
-options: gmi
+regex: 
+```javascript
+/sub\s+(.+?)\(([\s\S]*?)\)([\s\S]*)end\s*sub\s+(.*)/gmi
+```
+
+Example:
 
 ```
 sub Drive_S(dt)
@@ -260,8 +261,12 @@ end sub Drive_S
 
 
 ### Object
-regex: type\s+(.+)([\s\S]*)end\s*type\s+(.*)
-options: gmi
+regex: 
+```javascript
+/type\s+(.+)([\s\S]*)end\s*type\s+(.*)/gmi
+```
+
+Example:
 
 #define Car_T as a compound type (object) that has the following fields
 contained within it: instances of real numbers named year, distance, and
@@ -292,14 +297,12 @@ end type Car_T
 ### Number
 regex: 
 ```javascript
-/(\d+(?:[\.][\d]*)?)/
+/(\d+(?:[\.][\d]*)?)/g
 ```  
-options: g
 
 ## Definitions of Operators
 ### template operator ...
 regex: 
 ```javascript
-/(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/
+/(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/gi
 ```  
-options:gi
