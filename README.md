@@ -43,10 +43,7 @@ An expression is a series of one or more atoms modified by one or more operators
 * ```x = y ```
 * ```z = x + y ```
 * ```b = (apple !== banana) ```
-* ```pressure = calcPressure() ```
-* ```if(i == 1)
-  ...
-end if  ```  
+* ```pressure = calcPressure() ``` 
 
 ### Native Type
 A native type is a basic variable type defined and contained within the programming language of Osme. These words are reserved keywords and are unable to be redefined throughout the execution of the program.
@@ -293,10 +290,16 @@ end type Car_T
 
 ## Definitions of Types
 ### Number
-regex: ```javascript/(\d+(?:[\.][\d]*)?)/```  
+regex: 
+```javascript
+/(\d+(?:[\.][\d]*)?)/
+```  
 options: g
 
 ## Definitions of Operators
 ### template operator ...
-regex: ```javascript/(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/```  
+regex: 
+```javascript
+/(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/
+```  
 options:gi
