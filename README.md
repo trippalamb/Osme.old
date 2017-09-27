@@ -40,11 +40,11 @@ An atom is a singular unit of information being referenced via a name or literal
 An expression is a series of one or more atoms modified by one or more operators 
 
 #### Examples
-* ```x = y ```
-* ```z = x + y ```
-* ```b = (apple !== banana) ```
-* ```pressure = calcPressure() ``` 
-* If statement
+* `x = y `
+* `z = x + y `
+* `b = (apple !== banana) `
+* `pressure = calcPressure() ` 
+* An if statement
 ```
 if(a < b)
    ...
@@ -81,42 +81,70 @@ A native container type is a compound variable type defined and contained within
 A native operator is a symbol (defined internal to the Osme language) that represents a procedure to act upon one or more atoms to either return a new atom or to modify one or more of the argument atoms
 
 #### Comprehensive List
-* \+  
-> addition 
-* ++ 
-> simple increment
-* complex increment
+* addition 
+> `+` 
+* simple increment 
+> `++` 
+* complex increment 
 > += 
-* subtraction
+* subtraction 
 > \-
-* -- "simple decrement" 
-* -= "complex decrement" 
-* *  "multiplication" 
-* *= "multiplicative assignment" 
-* /  "division" 
-* /= "divisive assignment" 
-* \*\* "exponent" 
-* // "nth root" 
-* %  "modulus" 
-* () "parenthesis" 
-* && "logical and" 
-* || "logical or" 
-* !  "not" 
-* != "not equivalent" 
-* =  "assignment" 
-* => "pointer assigment" 
-* == "equivalence" 
-* ~  "smart parse" 
-* ~= "truthy equivalence" 
-* <  "less than" 
-* <= "less than or equal" 
-* \>  "greater than" 
-* \>= "greater than or equal to" 
-* a?b:c "ternary" 
-* a<[=]b<[=]c "between (less than)" 
-* a>[=]b>[=]c "between (greater than)" 
-* a?:c "contained within" 
-* ... [by <number>] "generated sequence" 
+* simple decrement 
+> --
+* complex decrement 
+> -=
+* multiplication 
+> \*
+* multiplicative assignment 
+> \*=
+* division 
+> \
+* divisive assignment 
+> \=
+* exponent 
+> \*\*
+* nth root 
+> \\
+* modulus 
+> %
+* parentheses 
+> ()
+* assignment 
+> =
+* logical and 
+> &&
+* logical or 
+> ||
+* not 
+> !
+* not equivalent 
+> !=
+* pointer assigment 
+> =>
+* equivalence 
+> ==
+* smart parse 
+> ~
+* truthy equivalence 
+> ~=
+* less than 
+> <
+* less than or equal 
+> <=
+* greater than 
+> \>
+* greater than or equal to 
+> \>=
+* ternary 
+> a?b:c 
+* between (less than) 
+> a<[=]b<[=]c
+* between (greater than) 
+> a>[=]b>[=]c
+* contained within 
+> a?:c
+* generated sequence 
+> ... [by <number>]
 
 
 ### Syntax Operator
@@ -171,11 +199,11 @@ that is unable to be used in different context while writing in the language
 type[, options]* :: name 
 
 examples
-```real :: x```        # x is declared as an instance of the real number type
-`int[3] :: y`      # y is declared as an instance of an array of length 3 of the integer type
-`real[:] :: z`     # z is declared as an instance of an array of variable length of the real number type
-`Car_T :: car`     # car is declared as an instance of the compound type Car_T (which happens to be an object)
-`Drive_F :: drive` # drive is declared as an instance of the compound type Drive_F (which happens to be an function)
+`real :: x        # x is declared as an instance of the real number type`  
+`int[3] :: y      # y is declared as an instance of an array of length 3 of the integer type`  
+`real[:] :: z     # z is declared as an instance of an array of variable length of the real number type`  
+`Car_T :: car     # car is declared as an instance of the compound type Car_T (which happens to be an object)`  
+`Drive_F :: drive # drive is declared as an instance of the compound type Drive_F (which happens to be an function)`  
 
 ## Define Syntax of Osme
 ### Array
