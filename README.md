@@ -153,19 +153,22 @@ the osme language that allows for readable grammar, templating, or other misc
 uses
 
 #### Comprehensive List
-* \#  "comment" 
-* #* *# "multiline comment" 
-* [] "bracket (for array usage)" 
-* {} "expansion brace" 
-* &  "expansion and" 
-* |  "expansion or"  
-* ,  "list separator" 
-* "|'$<name>"|'  "string literal variable name escape" 
-* haven't decided ($,@,&,\\,<>,^) "concatenation" 
-* :  "field of" 
-* :: "instance of" 
-* "" "quotation marks" 
-* '' "single quotation marks" 
+| Symbol        | Name                     | Notes           |
+| ------------- |--------------------------|-----------------|
+| \#            | inline comment           |                 |
+| \#\*  \*\#    | multiline comment        |                 |
+| []            | brackets                 | for array usage |
+| {}            | brace                    | for expansion templating |
+| &             | expansion and            | for expansion templating |
+| \|            | expansion or             | for expansion templating |
+| ,             | comma                    | for list separation |
+| ;             | semi-colon               | for list separation |
+| ""            | quotation marks          | for string literals |
+| ''            | single quotation marks   | for string literals |
+| $             | variable name escape     | for use within string literals|
+| .             | concatentation           |                            |
+| :             | field of                 |                            |
+| ::            | instance of              | for use with declaring variables|
 
 ### Reserved Keyword
 A reserved keyword is a word that has meaning internal to the language Osme
