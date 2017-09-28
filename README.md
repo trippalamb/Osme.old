@@ -23,6 +23,14 @@ In this way the need to convert any specific language to another specific langua
 
 ## Definitions of Concepts in Osme
 
+Backus-Naur:
+```
+atom   ::= number | 
+number ::= (\d+(?:[\.][\d]*)?)(i)?
+word   ::= 
+```
+
+
 ### Atom
 An atom is a singular unit of information being referenced via a name or literal representation of a native type 
 
@@ -59,7 +67,7 @@ A native type is a basic variable type defined and contained within the programm
 + Number 
   * int | integer 
   * real 
-  * complex 
+  * imaginary 
 + String 
   * char | character 
   * regex | regularExpression 
@@ -185,6 +193,12 @@ type[, options]* :: name
 
 ## Definitions of Simple Types
 ### Number
+regex: 
+```javascript
+/(\d+(?:[\.][\d]*)?)(i)?/g
+```  
+
+### Non-Imaginary Number
 regex: 
 ```javascript
 /(\d+(?:[\.][\d]*)?)/g
