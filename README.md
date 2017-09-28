@@ -182,7 +182,83 @@ type[, options]* :: name
 `Car_T :: car     # car is declared as an instance of the compound type Car_T (which happens to be an object)`  
 `Drive_F :: drive # drive is declared as an instance of the compound type Drive_F (which happens to be an function)`  
 
-## Define Syntax of Osme
+
+## Definitions of Simple Types
+### Number
+regex: 
+```javascript
+/(\d+(?:[\.][\d]*)?)/g
+```  
+
+### Integer
+regex: 
+```javascript
+/()/g
+```  
+
+### Real
+regex: 
+```javascript
+/()/g
+```  
+
+### Complex
+regex: 
+```javascript
+/()/g
+```  
+
+### Character
+regex: 
+```javascript
+/()/g
+```  
+### Regex
+regex: 
+```javascript
+/()/g
+```  
+
+### Boolean
+regex: 
+```javascript
+/()/g
+```  
+
+## Definitions of Container|Compound Types
+### Type (object)
+regex: 
+```javascript
+/type\s+(.+)([\s\S]*)end\s*type\s+(.*)/gmi
+```
+
+Example:
+
+#define Car_T as a compound type (object) that has the following fields
+contained within it: instances of real numbers named year, distance, and
+speed; instance of integer named id; instance of a length 10 character array
+named vin; instances of variable length character arrays named make and model;
+an instance of the compound type Motor_T named motor; a function named
+getYear; and an instance of the subroutine Drive_S named drive
+
+```
+type Car_T
+  real :: year
+  real :: distance, speed
+  int  :: id
+  char[10] :: vin
+  char[:] :: make, model
+  Motor_T :: motor
+
+  Drive_S :: drive
+  
+  fxn getYear() return(year)
+    year = this:year
+  end fxn getYear
+
+end type Car_T 
+```
+
 ### Array
 
 define x to be an array of integers that is length 5 and the values increment from 1 to 5 incrementing by 1 each time 
@@ -232,7 +308,6 @@ x[1,:] = [1,4,7]
 x[2,:] = [2,5,8]
 x[3,:] = [3,6,9]
 ```
-
 ### Function
 regex: 
 ```javascript
@@ -274,49 +349,113 @@ end sub Drive_S
 ```
 
 
+## Definitions of Operators
 
-### Object
+### Assignment Operator `=`
 regex: 
 ```javascript
-/type\s+(.+)([\s\S]*)end\s*type\s+(.*)/gmi
-```
-
-Example:
-
-#define Car_T as a compound type (object) that has the following fields
-contained within it: instances of real numbers named year, distance, and
-speed; instance of integer named id; instance of a length 10 character array
-named vin; instances of variable length character arrays named make and model;
-an instance of the compound type Motor_T named motor; a function named
-getYear; and an instance of the subroutine Drive_S named drive
-
-```
-type Car_T
-  real :: year
-  real :: distance, speed
-  int  :: id
-  char[10] :: vin
-  char[:] :: make, model
-  Motor_T :: motor
-
-  Drive_S :: drive
-  
-  fxn getYear() return(year)
-    year = this:year
-  end fxn getYear
-
-end type Car_T 
-```
-
-## Definitions of Types
-### Number
-regex: 
-```javascript
-/(\d+(?:[\.][\d]*)?)/g
+/()/gi
 ```  
 
-## Definitions of Operators
-### template operator ...
+### Pointer Assignment Operator `=>`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Addition Operator `+`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Simple Increment Operator `++`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Complex Increment Operator `+=`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Subtraction Operator `-`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Simple Decrement Operator `--`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Complex Decrement Operator `-=`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Mutiplication Operator `*`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Multiplicative Assignment Operator `*=`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Division Operator `/`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Divisive Assignment Operator `/=`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Exponent Operator `**`
+regex: 
+```javascript
+/()/gi
+```  
+
+
+### nth Root Operator `//`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Modulus Operator `%`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Parentheses Operator `()`
+regex: 
+```javascript
+/()/gi
+```  
+
+### Smart Parse Operator `~`
+regex: 
+```javascript
+/()/gi
+```  
+
+
+### Generated Sequence Operator `...`
 regex: 
 ```javascript
 /(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/gi
