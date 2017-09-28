@@ -80,71 +80,45 @@ A native container type is a compound variable type defined and contained within
 ### Native Operator
 A native operator is a symbol (defined internal to the Osme language) that represents a procedure to act upon one or more atoms to either return a new atom or to modify one or more of the argument atoms
 
-#### Comprehensive List
-* addition 
-> \+ 
-* simple increment 
-> \+\+ 
-* complex increment 
-> += 
-* subtraction 
-> \-
-* simple decrement 
-> --
-* complex decrement 
-> -=
-* multiplication 
-> \*
-* multiplicative assignment 
-> \*=
-* division 
-> \\
-* divisive assignment 
-> \\\=
-* exponent 
-> \*\*
-* nth root 
-> \\\\
-* modulus 
-> %
-* parentheses 
-> ()
-* assignment 
-> =
-* logical and 
-> &&
-* logical or 
-> \|\|
-* not 
-> !
-* not equivalent 
-> !=
-* pointer assigment 
-> =>
-* equivalence 
-> ==
-* smart parse 
-> ~
-* truthy equivalence 
-> ~=
-* less than 
-> <
-* less than or equal 
-> <=
-* greater than 
-> \>
-* greater than or equal to 
-> \>=
-* ternary 
-> a?b:c 
-* between (less than) 
-> a<[=]b<[=]c
-* between (greater than) 
-> a>[=]b>[=]c
-* contained within 
-> a?:c
-* generated sequence 
-> ... [by <number>]
+#### Mathematical Native Operator Comprehensive List
+| Symbol        | Name                      | example usage   |
+| ------------- |---------------------------|-----------------|
+| =             | assignment                | a = b           |
+| =>            | pointer assignment        | a => b          |
+| \+            | addition                  | a \+ b          |
+| \+\+          | simple increment          | a++             |
+| \+=           | complex increment         | a += b          |
+| \-            | addition                  | a -             |
+| \-\-          | simple decrement          | a--             |
+| \-=           | complex decrement         | a -= b          |
+| \*            | multiplication            | a \* b          |
+| \*=           | multiplicative assignment | a \*= b         |
+| \/            | division                  | a / b           |
+| \*=           | divisive assignment       | a /= b          |
+| \*\*          | exponent                  | a \*\* b        |
+| \/\/          | nth root                  | a \/\/ b        |
+| %             | modulus                   | a % b           |
+| ()            | parentheses               | a + (b - c)     |
+| ~             | smart parse               | ~a              |
+| ... [BY a]    | generated sequence        | a ... b by c    |
+
+#### Comparison Native Operator Comprehensive List
+| Symbol        | Name                      | example usage       |
+| ------------- |---------------------------|---------------------|
+| ==            | equivalence               | a == b              |
+| !             | not                       | !a                  |
+| !=            | not equivalent            | a != b              |
+| ~=            | truthy equivalence        | a ~= b              |
+| <             | less than                 | a < b               |
+| <=            | less than or equal to     | a <= b              |
+| \>            | greater than              | a \> b              |
+| \>=           | greater than or equal to  | a \>= b             |
+| a?b:c         | ternary                   | e = (a < b) ? c : d |
+| a<[=]b<[=]c   | between (less than)       | a < b <= c          |
+| a>[=]b>[=]c   | between (greater than)    | a >= b > c          |
+| ?:            | contained within          | a ?: b              |
+
+
 
 
 ### Syntax Operator
