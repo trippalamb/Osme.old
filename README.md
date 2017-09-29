@@ -25,9 +25,10 @@ In this way the need to convert any specific language to another specific langua
 
 Backus-Naur:
 ```
-atom   ::= number | 
-number ::= (\d+(?:[\.][\d]*)?)(i)?
-word   ::= 
+atom          ::= number | word
+number        ::= (\d+(?:[\.][\d]*)?)(i)?
+word          ::= [^"']\b([a-zA-Z_]\w*)\b
+stringLiteral ::= (["'])[^\1]+?\1
 ```
 
 
