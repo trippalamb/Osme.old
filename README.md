@@ -44,6 +44,7 @@ An atom is a singular unit of information being referenced via a name or literal
 * `574.0` (real literal) 
 * `"cat"` (string literal) 
 * `true`  (reserved keyword for a boolean value) 
+* `/[a-z]/g` (regex literal)
 
 ### Expression
 An expression is a series of one or more atoms modified by one or more operators 
