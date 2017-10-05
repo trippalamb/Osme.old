@@ -1,0 +1,18 @@
+int quotient = 2520
+bool divisible = false
+
+while(!divisible)
+
+    quotient += 20
+
+    #alternate methods
+    #if(quotient % {11&12&13&14&15&16&17&18&19&20} == 0)
+    #if(quotient % {&[11,12,13,14,15,16,17,18,19,20]} == 0)
+
+    if(quotient % {&(11...20)} == 0)
+        divisible = true
+    end if
+
+end while
+
+write "Problem5a: " + quotient

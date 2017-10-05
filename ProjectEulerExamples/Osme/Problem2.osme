@@ -1,0 +1,26 @@
+fxn fib(int n) return(int z)
+
+    real Phi = (1 + 5**(0.5))/2
+
+    z = ~((Phi**n - (-Phi)**(-n))/(5**(0.5)))
+
+end fxn fib
+
+int n = 2
+int sum = 0
+
+int fibNum = fib(n)
+
+do while (fibNum <= 4000000)
+
+    if(fibNum % 2 == 0)
+        sum += fibNum
+    end if
+
+    n++
+
+    fibNum = fib(n)
+
+end do
+
+write "Problem2: " + sum

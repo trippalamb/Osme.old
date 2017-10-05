@@ -1,0 +1,36 @@
+int i, j
+int product
+int[] palindromes
+int maxPal = 0
+
+do i = 1 ... 999
+    do j = 1 ... 999
+        product = i * j
+
+        if(isPalindrome(text(product)))
+            palindromes.push(product)
+        end if
+
+    end do
+end do
+
+foreach palindrome in palindromes
+    if(palindrome > maxPal)
+        maxPal = palindrome
+    end if
+end foreach
+
+write "Problem4: " + maxPal
+
+fxn isPalindrome(text input) return(bool isIt)
+
+    isIt = true
+
+    do i = 1 ... input.length/2
+       if(input[i] != input[-i])
+           isIt = false
+           exit
+       end if
+    end do
+
+end fxn isPalindrome

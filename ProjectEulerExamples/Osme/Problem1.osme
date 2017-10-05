@@ -1,0 +1,11 @@
+#comment
+int sum = 0
+int i = 0
+
+do i = 1 ... 999
+    if( i % {3|5} == 0)
+        sum += i
+    end if
+end do
+
+write "Problem1: ".sum

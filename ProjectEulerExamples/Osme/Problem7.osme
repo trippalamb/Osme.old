@@ -1,0 +1,16 @@
+int num = 2
+total = 0
+
+while(total < 10001)
+    if(isPrime(num))
+        total++
+    end if
+    num++
+end while
+
+fxn isPrime()
+
+
+end fxn
+
+write num

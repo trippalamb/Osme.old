@@ -1,0 +1,18 @@
+int quotient = 2520
+int[] divisors = [11->20]
+int[divisors.length] remainders
+int[divisors.length] zeroes = 0
+
+bool divisible = false
+
+while(!divisible)
+    quotient += 20
+
+    remainders = quotient % divisors
+
+    if(remainders == zeroes)
+        divisible = true
+    end if
+end while
+
+write "Problem5b: " + quotient

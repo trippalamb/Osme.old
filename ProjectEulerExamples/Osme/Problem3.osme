@@ -1,0 +1,35 @@
+int[] factors = factor(600851475143)
+write "Problem3: " + factors[-1]
+
+fxn factor(int number) return(int[] factors)
+
+    int i = 2
+    real max = number**(0.5)
+
+    do while ( i <= max)
+
+        if(number % i == 0 && isPrime(i))
+            factors.push(i)
+        end if
+
+        i++
+
+    end do
+
+end fxn factor
+
+fxn isPrime(int number) return(bool yes)
+
+    int i = 2
+
+    yes = true
+
+    while (i <= number**(0.5))
+        if( number % i == 0)
+            yes = false
+            exit
+        end if
+        i++
+    end while
+
+end fxn isPrime
