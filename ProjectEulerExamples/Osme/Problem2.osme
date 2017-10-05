@@ -23,4 +23,4 @@ do while (fibNum <= 4000000)
 
 end do
 
-write "Problem2: " + sum
+write "Problem2: ".sum
