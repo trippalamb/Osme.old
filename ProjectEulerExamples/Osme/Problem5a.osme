@@ -15,4 +15,4 @@ while(!divisible)
 
 end while
 
-write "Problem5a: " + quotient
+write "Problem5a: ".quotient

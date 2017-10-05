@@ -1,5 +1,5 @@
 int[] factors = factor(600851475143)
-write "Problem3: " + factors[-1]
+write "Problem3: ".factors[-1]
 
 fxn factor(int number) return(int[] factors)
 

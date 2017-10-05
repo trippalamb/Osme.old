@@ -20,7 +20,7 @@ foreach palindrome in palindromes
     end if
 end foreach
 
-write "Problem4: " + maxPal
+write "Problem4: ".maxPal
 
 fxn isPalindrome(text input) return(bool isIt)
 
