@@ -197,19 +197,19 @@ type[, options]* :: name
 ### Number
 regex: 
 ```javascript
-/(\d+(?:[\.][\d]*)?)(i)?/g
+/[<operators>\s]([\+-])?(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.]))(?:i(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.])))?(?=[<operators>\s])/g
 ```  
 
 ### Non-Imaginary Number
 regex: 
 ```javascript
-/(\d+(?:[\.][\d]*)?)/g
+/\b(\d+(?:[\.][\d]*)?)\b/g
 ```  
 
 ### Integer
 regex: 
 ```javascript
-/()/g
+/[<operators>\s](\d+)(?![i\.])\b/g
 ```  
 
 ### Real
