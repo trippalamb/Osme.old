@@ -161,7 +161,8 @@ that is unable to be used in different context while writing in the language
 #### Comprehensive List
 * all internal types
 * by "optional argument for the generated sequence operator" 
-* do [while] "loop logic structure" 
+* do [while|until] "loop logic structure" 
+* foreach "loop logic structure (tentative)"
 * if/else if/else "conditional logic structure (if)" 
 * select case "conditional logic structure (select)" 
 * return 
