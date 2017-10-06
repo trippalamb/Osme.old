@@ -117,7 +117,7 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 | ------------- |---------------------------|---------------------|
 | ==            | equivalence               | a == b              |
 | !             | not                       | !a                  |
-| !=            | not equivalent            | a != b              |
+| =!=           | not equivalent            | a != b              |
 | ~=            | truthy equivalence        | a ~= b              |
 | <             | less than                 | a < b               |
 | <=            | less than or equal to     | a <= b              |
