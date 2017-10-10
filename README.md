@@ -372,6 +372,12 @@ regex:
 /do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/gmi
 ```
 
+### if statement `if [else if]* [else]`
+regex:
+```javascript
+/if\s*\(([\s\S]*?)\)([\s\S]*?)(?:else\s*if\s*\(([\s\S]*?)\)([\s\S]*?))*(?:else([\s\S]*?))?end\s*if/gmi
+```
+
 ## Definitions of Operators
 
 ### Assignment Operator `=`
