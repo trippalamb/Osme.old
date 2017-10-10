@@ -364,7 +364,13 @@ sub Drive_S(dt)
 
 end sub Drive_S
 ```
+## Definitions of Control Structures
 
+### Do Loop `do`
+regex:
+```javascript
+/do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/gmi
+```
 
 ## Definitions of Operators
 
