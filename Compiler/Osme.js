@@ -2,6 +2,7 @@ var nodejs = process.argv[1];
 var file = process.argv[2];
 //var file = "C:/Users/tripp.lamb/Projects/Osme/ProjectEulerExamples/Osme/Problem1.osme";
 var jsfile = file.slice(0, file.lastIndexOf('.')) + ".js";
+var os = require('os');
 
 compile(file, jsfile)//, "osme", "js")
 //run(nodejs, jsFile)
@@ -18,7 +19,6 @@ function compile(file, outfile){
     
 
     console.log(code);
-    console.log(code[4]);
 
     //fs.writeFileSync(outfile, content);
     //console.log("Conversion Complete");
@@ -39,7 +39,7 @@ function run(nodejs, jsfile){
 
 //TODO: make a translator file
 function decode(content){
-    lines = content.split("\r\n");
+    var lines = content.split(/\r?\n/);
     var lessContent = "";
     var code = [];
     var j = 0;
@@ -48,8 +48,8 @@ function decode(content){
 
         lineInfo = getLineInfo(lines[i]);
         if(lineInfo.isContainer){
-            console.log(lineInfo.opening);
-            lessContent = lines.slice(i).join("\r\n");
+
+            lessContent = lines.slice(i).join(os.EOL);
             code[j] = containerMatch(lineInfo.opening, lessContent);
             i += code[j].lines;
             
@@ -116,6 +116,14 @@ function containerMatch(opening, content){
 function Code_DoLoop(m, content){
 
 
+    var eolMatch = m[0].match(/\r?\n/g);
+
+    if(eolMatch !== null){
+        this.lines = eolMatch.length; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
+    }
+    else{
+        this.lines = 0; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
+    }
 
     this.structure     = "do";
     this.whole         = m[0];
@@ -123,7 +131,6 @@ function Code_DoLoop(m, content){
     this.iterativeVals = m[2];
     this.inner         = m[3];
     this.extra         = m[4];
-    this.lines         = m[0].match(/\r/g).length;; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
 
     this.code          = decode(this.inner);
 }
@@ -137,7 +144,16 @@ function Code_IfStatement(m, content){
         }
     }
     this.structure = "if";
-    this.lines = m[0].match(/\r/g).length;
+
+    var eolMatch = m[0].match(/\r?\n/g);
+
+    if(eolMatch !== null){
+        this.lines = eolMatch.length; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
+    }
+    else{
+        this.lines = 0; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
+    }
+
     this.whole = m.shift();
 
     this.conditionals  = [];
