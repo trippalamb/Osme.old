@@ -4,7 +4,7 @@ var UT = UT || {};
 
 (function(){
     UT.decode = function(content, language){
-        var lines = content.split(/\r?\n/);
+        var lines = content.split(os.EOL);
         var lessContent = "";
         var code = [];
         var j = 0;

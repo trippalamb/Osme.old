@@ -1,19 +1,14 @@
 var Osme = Osme || {};
 
 (function(){
+    var os = require('os');
+    var eol = new RegExp(os.EOL, "g");
     Osme.Code = {};
     
     Osme.Code.DoLoop = function(m, decode){
     
     
-        var eolMatch = m[0].match(/\r?\n/g);
-    
-        if(eolMatch !== null){
-            this.lines = eolMatch.length; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
-        }
-        else{
-            this.lines = 0; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
-        }
+        this.lines = getLines(m[0], eol);
     
         this.structure     = "do";
         this.whole         = m[0];
@@ -35,14 +30,8 @@ var Osme = Osme || {};
         }
         this.structure = "if";
     
-        var eolMatch = m[0].match(/\r?\n/g);
-    
-        if(eolMatch !== null){
-            this.lines = eolMatch.length; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
-        }
-        else{
-            this.lines = 0; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
-        }
+        this.lines = getLines(m[0], eol);
+       
     
         this.whole = m.shift();
     
@@ -109,6 +98,22 @@ var Osme = Osme || {};
         }
     
         return lineInfo;
+    }
+
+
+    function getLines(m, eol){
+        var eolMatch = m.match(eol);
+        var lines = 0;
+
+
+        if(typeof(eolMatch) !== "undefined"){
+            lines = eolMatch.length; //this is really - 1 (for 0 match) and + 1(for end of last matched line)
+        }
+        else{
+            lines = 0;
+        }
+
+        return lines;
     }
 })();
 
