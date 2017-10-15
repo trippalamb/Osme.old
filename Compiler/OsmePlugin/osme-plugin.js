@@ -5,6 +5,39 @@ var Osme = Osme || {};
     var eol = new RegExp(os.EOL, "g");
     Osme.Code = {};
     
+    Osme.Code.Comment_Single = function(m){
+        this.whole = m[0];
+        this.text = m[1];
+        this.structure = "comment";
+    }
+
+    Osme.Code.Declaration = function(m){
+        this.whole = m[0];
+        this.structure = "declaration"
+        this.type = m[1];
+        this.name = m[2];
+    }
+
+    Osme.Code.Assignment = function(m){
+        this.whole = m[0];
+        this.structure = "assignment";
+        this.assignee = m[1];
+
+        if(m[2] === "="){
+            this.assigner = m[3]; //todo: this should be a recursive decode check
+        }
+        else{
+            this.assigner = [this.assignee, m[2].substr(1,1), m[3]].join(" ");
+        }
+    }
+
+    Osme.Code.Write = function(m){
+
+        this.whole = [0];
+        this.structure = "write";
+        this.statement = m[1];
+    }
+
     Osme.Code.DoLoop = function(m, decode){
     
     
@@ -82,6 +115,39 @@ var Osme = Osme || {};
         return code;
     
     }
+
+    Osme.atomicMatch = function(atomName, line){
+        
+            var reg;
+            var code = {};
+            if(atomName === "#"){
+                reg = /#(.*)/;
+                m = line.match(reg);
+                code = new Osme.Code.Comment_Single(m);
+            }
+            else if(atomName === "::"){
+                reg = /(\w+)\s*::\s*(\w+)/;
+                m = line.match(reg);
+                code = new Osme.Code.Declaration(m);
+            }
+            else if(atomName === "="){
+                //TODO: make better code for these
+                reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
+                m = line.match(reg);
+                code = new Osme.Code.Assignment(m);
+            }
+            else if(atomName === "write"){
+                reg = /write\s+(.*)/;
+                m = line.match(reg);
+                code = new Osme.Code.Write(m);
+            }
+            else{
+                console.log("error in atomic match");
+            }
+        
+            return code;
+        
+        }
     
     Osme.getLineInfo = function(line){
     
@@ -91,10 +157,19 @@ var Osme = Osme || {};
     
         if(m !== null){
             lineInfo.isContainer = true;
+            lineInfo.isAtomic = false;
             lineInfo.opening = m[1];
+            lineInfo.atomicMatch = "";
         }
         else{
             lineInfo.isContainer = false;
+            lineInfo.opening = "";
+            reg = /(#|::|=|write)/
+            m = line.match(reg);
+            if(m !== null){
+                lineInfo.isAtomic = true;
+                lineInfo.atomicMatch = m[1];
+            }
         }
     
         return lineInfo;

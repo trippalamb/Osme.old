@@ -22,7 +22,7 @@ var UT = UT || {};
     
             }
             else{
-                code[j] = lines[i];
+                code[j] = language.atomicMatch(lineInfo.atomicMatch, lines[i]);
                 j++;
             }
     

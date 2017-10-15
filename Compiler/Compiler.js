@@ -13,8 +13,8 @@ function compile(file, outfile){
 
     var fs = require('fs');
 
-    content = fs.readFileSync(file, 'utf8');
-    code = Translator.decode(content, Language);
+    var content = fs.readFileSync(file, 'utf8');
+    var code = Translator.decode(content, Language);
     //code = Translator.decode(content, Translator.Language);
     
 
