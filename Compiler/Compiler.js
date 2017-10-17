@@ -6,6 +6,7 @@ var os = require('os');
 var Translator = require("./UniversalTranslator.js");
 var Language = require("./OsmePlugin/osme-plugin.js");
 var OutLanguage = require("./JSPlugin/js-write.js");
+var Expander = require("./OsmePlugin/expander.js");
 
 OutLanguage.addDecodeFxns(Language);
 compile(file, jsfile)//, "osme", "js")
@@ -16,6 +17,7 @@ function compile(file, outfile){
     var fs = require('fs');
 
     var content = fs.readFileSync(file, 'utf8');
+    content = Expander.expand(content);
     var code = Translator.decode(content, Language);
     //code = Translator.decode(content, Translator.Language);
     
