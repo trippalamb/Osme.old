@@ -5,9 +5,9 @@ var JS = JS || {};
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
     
-    JS.addDecodeFxns = function(Language){
+    JS.addRecodeFxns = function(Language){
 
-        Language.Code.Comment_Single.prototype.decode = function(){
+        Language.Code.Comment_Single.prototype.recode = function(){
             
             var code = "";
 
@@ -16,7 +16,7 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.Declaration.prototype.decode = function(){
+        Language.Code.Declaration.prototype.recode = function(){
             
             var code = "";
 
@@ -25,16 +25,16 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.Assignment.prototype.decode = function(){
+        Language.Code.Assignment.prototype.recode = function(){
             
             var code = "";
 
-            code += this.asignee + " = " + this.assigner;
+            code += this.assignee + " = " + this.assigner;
             
             return code;
         };
 
-        Language.Code.Write.prototype.decode = function(){
+        Language.Code.Write.prototype.recode = function(){
             
             var code = "";
 
@@ -43,16 +43,26 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.DoLoop.prototype.decode = function(){
+        Language.Code.DoLoop.prototype.recode = function(){
             
-            var code = "";
+            var outCode = "";
 
-            code += "TODO: Do Loop";
+            outCode += "for(";
+            outCode += "var " + this.iterative + " = " + (this.sequence.start) + "; ";
+            outCode += this.iterative + " < " + this.sequence.end + "; ";
+            outCode += this.iterative + "++;){" + os.EOL;
+
+            for(var i = 0; i < this.code.length; i++){
+                if(typeof(this.code[i].recode) !== "undefined"){
+                    outCode += this.code[i].recode() + os.EOL;
+                }
+            }
+            outCode += "}" + os.EOL;
             
-            return code;
+            return outCode;
         };
 
-        Language.Code.IfStatement.prototype.decode = function(){
+        Language.Code.IfStatement.prototype.recode = function(){
             
             var code = "";
 
