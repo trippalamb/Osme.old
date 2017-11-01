@@ -2,36 +2,55 @@ var Osme = Osme || {};
 var Expander = require("./expander.js");
 
 (function(){
+
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
     Osme.Code = {};
     
     Osme.Code.Comment_Single = function(m){
+
         this.whole = m[0];
         this.text = m[1];
         this.structure = "comment";
+
     }
 
     Osme.Code.Declaration = function(m){
+
         this.whole = m[0];
         this.structure = "declaration"
         this.type = m[1];
         this.name = m[2];
+
     }
 
     Osme.Code.Assignment = function(m){//, decode){
+        
         this.whole = m[0];
         this.structure = "assignment";
         this.assignee = m[1];
+        this.assigner = m[3]; //todo: this should be a recursive decode check
 
         if(m[2] === "="){
-            this.assigner = m[3]; //todo: this should be a recursive decode check
+            this.operator = " = ";
             //this.assigner = decode(m[3]);
         }
         else{
-            this.assigner = [this.assignee, m[2].substr(1,1), m[3]].join(" ");
+            this.operator = " += "; //TODO: this should be whatever the operator is
             //this.assigner = [this.assignee, m[2].substr(1,1), decode(m[3])].join(" ");
         }
+
+    }
+
+    Osme.Code.Expression = function(m){
+        
+        this.whole = m[0];
+        this.structure = "expression";
+        
+        this.args = [];
+        this.operator = "";
+
+
     }
 
     Osme.Code.Write = function(m){
@@ -43,7 +62,7 @@ var Expander = require("./expander.js");
 
     //TODO: probably rename this to a generic loop idea
     //maybe variable dependent loop or something
-    Osme.Code.DoLoop = function(m, decode){
+    Osme.Code.IterativeLoop = function(m, decode){
     
     
         this.lines = getLines(m[0], eol);
@@ -120,7 +139,7 @@ var Expander = require("./expander.js");
         if(opening === "do"){
             reg = /do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/mi;
             m = content.match(reg);
-            code = new Osme.Code.DoLoop(m, decode);
+            code = new Osme.Code.IterativeLoop(m, decode);
         }
         else if(opening === "if"){
             reg = /if\s*\(([\s\S]*?)\)([\s\S]*?)(?:else\s*if\s*\(([\s\S]*?)\)([\s\S]*?))*(?:else([\s\S]*?))?end\s*if/mi;

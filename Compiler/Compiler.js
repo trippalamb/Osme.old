@@ -1,6 +1,9 @@
 var nodejs = process.argv[1];
 var file = process.argv[2];
-var jsfile = file.slice(0, file.lastIndexOf('.')) + ".js";
+var outFile = process.argv[3];
+//var jsfile = file.slice(0, file.lastIndexOf('.')) + ".js";
+var os = require('os');
+//console.log(jsfile);
 
 
 var Translator = require("./UniversalTranslator.js");
@@ -9,7 +12,7 @@ var OutLanguage = require("./JSPlugin/js-write.js");
 
 
 OutLanguage.addRecodeFxns(Language);
-compile(file, jsfile)//, "osme", "js")
+compile(file, outFile);//, "osme", "js")
 //run(nodejs, jsFile)
 
 function compile(file, outfile){
@@ -29,9 +32,9 @@ function compile(file, outfile){
             outCode += code[i].recode() + os.EOL;
         }
     }
-    console.log(outCode);
+    //console.log(outCode);
 
-    //fs.writeFileSync(outfile, content);
+    fs.writeFileSync(outfile, outCode);
     //console.log("Conversion Complete");
 
 }

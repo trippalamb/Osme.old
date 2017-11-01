@@ -4,6 +4,7 @@ var JS = JS || {};
     
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
+    var tab = "  ";
     
     JS.addRecodeFxns = function(Language){
 
@@ -29,7 +30,7 @@ var JS = JS || {};
             
             var code = "";
 
-            code += this.assignee + " = " + this.assigner;
+            code += this.assignee + this.operator + this.assigner;
             
             return code;
         };
@@ -43,18 +44,35 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.DoLoop.prototype.recode = function(){
+        Language.Code.IterativeLoop.prototype.recode = function(indent){
+            
+            var indent = indent || "";
+            var innerIndent = indent + tab;
+
+            var op = "";
+            var chevron = "";
+
+            if(this.sequence.start < this.sequence.end){
+                chevron = " < ";
+                op = "+=";
+            }
+            else{
+                chevron = " > ";
+                op = "-=";
+            }
+
+            var iter = this.iterative + op + this.sequence.by;
             
             var outCode = "";
 
-            outCode += "for(";
+            outCode += indent + "for(";
             outCode += "var " + this.iterative + " = " + (this.sequence.start) + "; ";
-            outCode += this.iterative + " < " + this.sequence.end + "; ";
-            outCode += this.iterative + "++;){" + os.EOL;
+            outCode += this.iterative + chevron + this.sequence.end + "; ";
+            outCode += iter + "){" + os.EOL;
 
             for(var i = 0; i < this.code.length; i++){
                 if(typeof(this.code[i].recode) !== "undefined"){
-                    outCode += this.code[i].recode() + os.EOL;
+                    outCode += this.code[i].recode(innerIndent);
                 }
             }
             outCode += "}" + os.EOL;
@@ -62,11 +80,21 @@ var JS = JS || {};
             return outCode;
         };
 
-        Language.Code.IfStatement.prototype.recode = function(){
+        Language.Code.IfStatement.prototype.recode = function(indent){
             
             var code = "";
+            var indent = indent || "";
+            var innerIndent = indent + tab;
 
-            code += "TODO: If Statement";
+            code += indent + "if(" + this.conditionals[0] + "){" + os.EOL;
+            for(var i = 0; i < this.codes[0].length; i++){
+                if(typeof(this.codes[0][i].recode) !== "undefined"){
+                    code += this.codes[0][i].recode(innerIndent);
+                    console.log(JSON.stringify(this.codes[0][i]));
+                }
+            }
+            code += os.EOL + indent + "}" + os.EOL;
+            
             
             return code;
         };
