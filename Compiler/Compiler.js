@@ -1,7 +1,7 @@
 var nodejs = process.argv[1];
 var file = process.argv[2];
 var jsfile = file.slice(0, file.lastIndexOf('.')) + ".js";
-var os = require('os');
+
 
 var Translator = require("./UniversalTranslator.js");
 var Language = require("./OsmePlugin/osme-plugin.js");
