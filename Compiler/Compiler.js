@@ -5,7 +5,10 @@ var jsfile = file.slice(0, file.lastIndexOf('.')) + ".js";
 
 var Translator = require("./UniversalTranslator.js");
 var Language = require("./OsmePlugin/osme-plugin.js");
+var OutLanguage = require("./JSPlugin/js-write.js");
 
+
+OutLanguage.addRecodeFxns(Language);
 compile(file, jsfile)//, "osme", "js")
 //run(nodejs, jsFile)
 
@@ -13,12 +16,20 @@ function compile(file, outfile){
 
     var fs = require('fs');
 
-    content = fs.readFileSync(file, 'utf8');
-    code = Translator.decode(content, Language);
+    var content = fs.readFileSync(file, 'utf8');
+    var code = Translator.decode(content, Language);
     //code = Translator.decode(content, Translator.Language);
     
 
-    console.log(code);
+    //console.log(code);
+
+    var outCode = "";
+    for (var i = 0; i < code.length; i++){
+        if(typeof(code[i].recode) !== "undefined"){
+            outCode += code[i].recode() + os.EOL;
+        }
+    }
+    console.log(outCode);
 
     //fs.writeFileSync(outfile, content);
     //console.log("Conversion Complete");

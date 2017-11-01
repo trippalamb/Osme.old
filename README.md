@@ -489,3 +489,22 @@ regex:
 ```javascript
 /(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/gi
 ```  
+## Definitions of Syntax Operators
+
+### Comment (Single Line) `#`
+regex:
+```javascript
+/#(.*)/
+```
+
+### Declaration `::`
+regex:
+```javascript
+/(\w+)\s*::\s*(\w+)/
+```
+
+## Keyword Statements
+regex:
+```javascript
+/write\s+(.*)/
+```
