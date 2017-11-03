@@ -26,20 +26,24 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.Assignment.prototype.recode = function(){
+        Language.Code.Assignment.prototype.recode = function(indent){
             
+            var indent = indent || "";
+
             var code = "";
 
-            code += this.assignee + this.operator + this.assigner;
+            code += indent + this.assignee + this.operator + this.assigner + ";";
             
             return code;
         };
 
         Language.Code.Write.prototype.recode = function(){
             
+            var indent = indent || "";
+
             var code = "";
 
-            code += "console.log(" + this.statement + ")";
+            code += "console.log(" + this.statement + ");";
             
             return code;
         };
@@ -53,11 +57,11 @@ var JS = JS || {};
             var chevron = "";
 
             if(this.sequence.start < this.sequence.end){
-                chevron = " < ";
+                chevron = " <= ";
                 op = "+=";
             }
             else{
-                chevron = " > ";
+                chevron = " >= ";
                 op = "-=";
             }
 
@@ -90,7 +94,7 @@ var JS = JS || {};
             for(var i = 0; i < this.codes[0].length; i++){
                 if(typeof(this.codes[0][i].recode) !== "undefined"){
                     code += this.codes[0][i].recode(innerIndent);
-                    console.log(JSON.stringify(this.codes[0][i]));
+                    //console.log(JSON.stringify(this.codes[0][i]));
                 }
             }
             code += os.EOL + indent + "}" + os.EOL;

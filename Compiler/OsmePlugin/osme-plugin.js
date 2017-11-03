@@ -1,10 +1,14 @@
 var Osme = Osme || {};
 var Expander = require("./expander.js");
+var Operators = require("./osme-operators.js");
 
 (function(){
 
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
+
+    Osme.Operators = 
+
     Osme.Code = {};
     
     Osme.Code.Comment_Single = function(m){
@@ -29,16 +33,9 @@ var Expander = require("./expander.js");
         this.whole = m[0];
         this.structure = "assignment";
         this.assignee = m[1];
+        this.operator = " " + m[2].trim();
         this.assigner = m[3]; //todo: this should be a recursive decode check
 
-        if(m[2] === "="){
-            this.operator = " = ";
-            //this.assigner = decode(m[3]);
-        }
-        else{
-            this.operator = " += "; //TODO: this should be whatever the operator is
-            //this.assigner = [this.assignee, m[2].substr(1,1), decode(m[3])].join(" ");
-        }
 
     }
 
@@ -57,7 +54,9 @@ var Expander = require("./expander.js");
 
         this.whole = [0];
         this.structure = "write";
-        this.statement = m[1];
+        //this.statement = m[1];
+
+        this.statement = Osme.expressionParse(m[1])
     }
 
     //TODO: probably rename this to a generic loop idea
@@ -155,37 +154,54 @@ var Expander = require("./expander.js");
     }
 
     Osme.atomicMatch = function(atomName, line){
-        
-            var reg;
-            var code = {};
-            if(atomName === "#"){
-                reg = /#(.*)/;
-                m = line.match(reg);
-                code = new Osme.Code.Comment_Single(m);
-            }
-            else if(atomName === "::"){
-                reg = /(\w+)\s*::\s*(\w+)/;
-                m = line.match(reg);
-                code = new Osme.Code.Declaration(m);
-            }
-            else if(atomName === "="){
-                //TODO: make better code for these
-                reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
-                m = line.match(reg);
-                code = new Osme.Code.Assignment(m);
-            }
-            else if(atomName === "write"){
-                reg = /write\s+(.*)/;
-                m = line.match(reg);
-                code = new Osme.Code.Write(m);
-            }
-            else{
-                console.log("error in atomic match");
-            }
-        
-            return code;
-        
+    
+        var reg;
+        var code = {};
+        if(atomName === "#"){
+            //TODO: these lines should be moved into contructor
+            reg = /#(.*)/;
+            m = line.match(reg);
+            code = new Osme.Code.Comment_Single(m);
         }
+        else if(atomName === "::"){
+            reg = /(\w+)\s*::\s*(\w+)/;
+            m = line.match(reg);
+            code = new Osme.Code.Declaration(m);
+        }
+        else if(atomName === "="){
+            //TODO: make better code for these
+            reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
+            m = line.match(reg);
+            code = new Osme.Code.Assignment(m);
+        }
+        else if(atomName === "write"){
+            reg = /write\s+(.*)/;
+            m = line.match(reg);
+            code = new Osme.Code.Write(m);
+        }
+        else{
+            console.log("error in atomic match");
+        }
+    
+        return code;
+    
+    }
+
+    Osme.expressionParse = function(exp){
+        //var operStr = ".+-*/%";
+
+        var reg = /(.*)([\.\+\-\*\/]+)(.*)/;
+        var m = exp.match(reg);
+        console.log(m);
+
+        if(m !== null){
+            if(m[2].trim() == "."){
+                return m[1] + " + " + m[3];
+            }
+        }
+        return exp;
+
+    }
     
     Osme.getLineInfo = function(line){
     

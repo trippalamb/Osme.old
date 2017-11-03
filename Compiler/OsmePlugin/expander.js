@@ -4,7 +4,8 @@
 //todo: this is most assurredly not correct for every instance
 //todo: this has some unneccesarily copy and pasted code
 var Expander = Expander || {};
-var expanderRegex = /\((.*){(.*)}(.*)\)/g;
+var expanderRegex = /(.*){(.*)}(.*)/g;
+//var expanderRegex = /\((.*){(.*)}(.*)\)/g;
 Expander.expand = function(rawCode){
 
     var editedCode = rawCode.replace(expanderRegex, expanderReplace);
@@ -36,7 +37,8 @@ Expander.expand = function(rawCode){
             for(var i = 1; i < substrs.length; i++){
                 output += " || (" + p1 + substrs[i] + p3 + ")";
             }
-            return "(" + output + ")";
+            //return "(" + output + ")";
+            return output;
         }
 
         var substrs = p2.split('&');
@@ -45,7 +47,8 @@ Expander.expand = function(rawCode){
             for(var i = 1; i < substrs.length; i++){
                 output += " && (" + p1 + substrs[i] + p3 + ")";
             }
-            return "(" + output + ")";
+            //return "(" + output + ")";
+            return output;
         }
 
         return str;
