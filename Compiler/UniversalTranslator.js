@@ -12,17 +12,17 @@ var UT = UT || {};
         for(var i = 0; i< lines.length; i++){
     
             lineInfo = language.getLineInfo(lines[i]);
-            if(lineInfo.isContainer){
+            if(lineInfo.isControl){
     
                 lessContent = lines.slice(i).join(os.EOL);
-                code[j] = language.containerMatch(lineInfo.opening, lessContent, UT.decode);
+                code[j] = language.controlStructureMatch(lineInfo.opening, lessContent, UT.decode);
                 i += code[j].lines;
                 
                 j++;
     
             }
             else{
-                code[j] = language.atomicMatch(lineInfo.atomicMatch, lines[i]);
+                code[j] = language.simpleMatch(lineInfo.simpleMatch, lines[i]);
                 j++;
             }
     

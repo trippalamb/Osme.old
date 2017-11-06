@@ -8,9 +8,31 @@ var Operators = Operators || {};
     //current valid values for type are "unary", "binary"
 
     Operators.construct = function(opr) {
+
         opr = opr.trim();
+        switch(opr) {
+            case ".":
+                return new Operators.Concatenation();
+            case "+":
+                return new Operators.Addition();
+            case "-":
+                return new Operators.Subtraction();
+            case "*":
+                return new Operators.Multiplication();
+            case "/":
+                return new Operators.Division();
+            case "%":
+                return new Operators.Modulus();
+            case "==":
+                return new Operators.Equivalency();
+            case "<>":
+                return new Operators.Not();
+            default:
+                console.log("errors in osme operator constructor");
+        }
+        
         if (opr === ".") {
-            return new Operators.Concatenation();
+           
         }
     }
     

@@ -1,15 +1,10 @@
-fxn fib(int n) return(int z)
+int :: n
+int :: sum
+int :: fibNum
 
-    real Phi = (1 + 5**(0.5))/2
-
-    z = ~((Phi**n - (-Phi)**(-n))/(5**(0.5)))
-
-end fxn fib
-
-int n = 2
-int sum = 0
-
-int fibNum = fib(n)
+n = 2
+sum = 0
+fibNum = fib(n)
 
 do while (fibNum <= 4000000)
 
@@ -24,3 +19,11 @@ do while (fibNum <= 4000000)
 end do
 
 write "Problem2: ".sum
+
+fxn fib(int n) return(int z)
+
+    real :: Phi
+    Phi = (1 + 5**(0.5))/2
+    z = ~((Phi**n - (-Phi)**(-n))/(5**(0.5)))
+
+end fxn fib

@@ -10,9 +10,16 @@ var Operators = require("./osme-operators.js");
     Osme.Operators = require("./osme-operators.js");
 
     Osme.Code = {};
-    
+    Osme.Variables = [];
+    Osme.Types = [];
+
+    Osme.Code.Variable = function(type, name){
+        this.type = type;
+        this.name = name;
+    }
+
     Osme.Code.Comment_Single = function(content){
-        
+
         var reg = /#(.*)/;
         var m = content.match(reg);
         this.whole = m[0];
@@ -27,21 +34,22 @@ var Operators = require("./osme-operators.js");
         var m = content.match(reg);
         this.whole = m[0];
         this.structure = "declaration"
-        this.type = m[1];
-        this.name = m[2];
+        this.var = new Osme.Code.Variable(m[1], m[2]);
+        Osme.Variables.push(this.var);
 
     }
 
     Osme.Code.Assignment = function(content){//, decode){
 
         //TODO: make better code for these
+        console.log(content);
         var reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
         var m = content.match(reg);
         this.whole = m[0];
         this.structure = "assignment";
         this.assignee = m[1];
         this.operator = " " + m[2].trim();
-        this.assigner = m[3]; //todo: this should be a recursive decode check
+        this.assigner = new Osme.Code.Expression(m[3]);
 
 
     }
@@ -65,11 +73,12 @@ var Operators = require("./osme-operators.js");
             this.args = [];
             this.args[0] = new Osme.Code.Expression(m[1]);
             this.args[1] = new Osme.Code.Expression(m[3]);
-            this.operator = m[2];
+            this.operator = Osme.Operators.construct(m[2]);
+
         }
         else {
             this.structure = "atomic";
-            this.whole = m[0];
+            this.whole = content;
         }
 
 
@@ -82,18 +91,15 @@ var Operators = require("./osme-operators.js");
         this.whole = [0];
         this.structure = "write";
         //this.statement = m[1];
-
         this.statement = new Osme.Code.Expression(m[1]);
     }
 
-    //TODO: probably rename this to a generic loop idea
-    //maybe variable dependent loop or something
     Osme.Code.IterativeLoop = function(content, decode){
-    
+
         var reg = /do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/mi;
         var m = content.match(reg);
         this.lines = getLines(m[0], eol);
-    
+
         this.structure     = "do";
         this.whole         = m[0];
         this.iterative     = m[1];
@@ -114,10 +120,14 @@ var Operators = require("./osme-operators.js");
 
         this.inner         = m[3];
         this.extra         = m[4];
-    
+
         this.code          = decode(this.inner, Osme);
     }
-    
+
+    Osme.Code.conditionalLoop = function(content, decode){
+        
+    }
+
     Osme.Code.IfStatement = function(content, decode){
 
         var reg = /if\s*\(([\s\S]*?)\)([\s\S]*?)(?:else\s*if\s*\(([\s\S]*?)\)([\s\S]*?))*(?:else([\s\S]*?))?end\s*if/mi;
@@ -130,49 +140,67 @@ var Operators = require("./osme-operators.js");
             }
         }
         this.structure = "if";
-    
+
         this.lines = getLines(m[0], eol);
-       
-    
+
+
         this.whole = m.shift();
-    
+
         this.conditionals  = [];
         this.inners = [];
-    
+
         if(m.length % 2 === 1){
             this.defaultInner = m.pop();
         }
-    
+
         while (m.length > 0){
-        
+
             this.conditionals.push(Expander.expand(m.shift()));
             this.inners.push(m.shift());
-    
+
         }
-        
+
         this.codes = [];
         for(var i = 0; i < this.inners.length; i++){
             this.codes[i] = decode(this.inners[i], Osme);
         }
-    
+
         if(typeof(this.defaultInner) !== "undefined"){
             this.defaultCode = decode(this.defaultInner, Osme);
         }
-    
+
     }
 
-    Osme.Code.Function = function(content, decode) {
-        var reg = /fxn\s+(.+?)\(([\s\S]*?)\)\s*return\((.+?)\)([\s\S]*)end\s*fxn\s+(.*)/mi;
+    Osme.Code.Fxn = function(content, decode) {
+        var reg = /fxn\s+(.+?)\(([\s\S]*?)\)\s*return\((.+?)\)([\s\S]*)end\s*fxn\s+\1/mi;
         var m = content.match(reg);
         this.whole = m[0];
-        this.args = m[1];
-        this.return = m[2];
-        this.inner = m[3];
+        this.name = m[1];
+        this.args = parseArguments(m[2]);
+        this.return = parseReturn(m[3]);
+        this.inner = decode(m[4], Osme);
+        console.log(JSON.stringify(this.args));
+
+        function parseArguments(argList){
+            var args = argList.split(',');
+            var vars = [];
+            for(var i = 0; i < args.length; i++){
+                var pieces = args[i].split(" ");
+                vars.push(new Osme.Code.Variable(pieces[0], pieces[1]));
+            }
+            //console.log(JSON.stringify(vars));
+            return vars;
+        }
+
+        function parseReturn(r){
+            var pieces = r.split(" ");
+            return new Osme.Code.Variable(pieces[0], pieces[1]);
+        }
     }
-    
-    
-    Osme.containerMatch = function(opening, content, decode){
-    
+
+
+    Osme.controlStructureMatch = function(opening, content, decode){
+
         var reg;
         var code = {};
         if(opening === "do"){
@@ -182,70 +210,66 @@ var Operators = require("./osme-operators.js");
             code = new Osme.Code.IfStatement(content, decode);
         }
         else if (opening === "fxn") {
-            code = new Osme.Code.Function(content, decode);
+            code = new Osme.Code.Fxn(content, decode);
         }
         else{
-            console.log("error in multiline match");
+            console.log("error in control structure match");
         }
-    
+
         return code;
-    
+
     }
 
-    Osme.atomicMatch = function(atomName, line){
-    
+    Osme.simpleMatch = function(simpleName, line){
+
         var reg;
         var code = {};
-        if(atomName === "#"){
+        if(simpleName === "#"){
             code = new Osme.Code.Comment_Single(line);
         }
-        else if(atomName === "::"){
+        else if(simpleName === "::"){
             code = new Osme.Code.Declaration(line);
         }
-        else if(atomName === "="){
+        else if(simpleName === "="){
             code = new Osme.Code.Assignment(line);
         }
-        else if(atomName === "write"){
+        else if(simpleName === "write"){
             code = new Osme.Code.Write(line);
+        }
+        else if(typeof(simpleName) === "undefined"){
+            //do nothing
         }
         else{
             console.log("error in atomic match");
         }
-    
+
         return code;
-    
-    }
-
-    Osme.expressionParse = function(exp){
-        //var operStr = ".+-*/%";
-
-        
 
     }
-    
+
     Osme.getLineInfo = function(line){
-    
+
         var reg = /(do|if|fxn)/;
         var m = line.match(reg);
         var lineInfo = {};
-    
+
         if(m !== null){
-            lineInfo.isContainer = true;
+            lineInfo.isControl = true;
             lineInfo.isAtomic = false;
             lineInfo.opening = m[1];
-            lineInfo.atomicMatch = "";
+            lineInfo.simpleMatch = "";
         }
         else{
-            lineInfo.isContainer = false;
+            lineInfo.isControl = false;
             lineInfo.opening = "";
             reg = /(#|::|=|write)/
             m = line.match(reg);
             if(m !== null){
                 lineInfo.isAtomic = true;
-                lineInfo.atomicMatch = m[1];
+                lineInfo.simpleMatch = m[1];
             }
         }
-    
+
         return lineInfo;
     }
 

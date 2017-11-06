@@ -1,39 +1,40 @@
 var JS = JS || {};
 
 (function(){
-    
+
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
     var tab = "  ";
-    
+
     JS.addRecodeFxns = function(Language){
 
         Language.Code.Comment_Single.prototype.recode = function(){
-            
+
             var code = "";
 
             code += "//" + this.text;
-            
+
             return code;
         };
 
-        Language.Code.Declaration.prototype.recode = function(){
-            
+        Language.Code.Declaration.prototype.recode = function(indent){
+
+            var indent = indent || "";
             var code = "";
 
-            code += "var " + this.name + ";";
-            
+            code += indent + "var " + this.var + ";" + os.EOL;
+
             return code;
         };
 
         Language.Code.Assignment.prototype.recode = function(indent){
-            
+
             var indent = indent || "";
 
             var code = "";
 
-            code += indent + this.assignee + this.operator + this.assigner + ";";
-            
+            code += indent + this.assignee + this.operator + this.assigner.recode() + ";" + os.EOL;
+
             return code;
         };
 
@@ -48,23 +49,24 @@ var JS = JS || {};
                 code += this.args[0].recode();
                 code += this.operator.recode();
                 code += this.args[1].recode();
+                return code;
             }
 
         }
 
         Language.Code.Write.prototype.recode = function(indent){
-            
+
             var indent = indent || "";
 
             var code = "";
 
             code += "console.log(" + this.statement.recode() + ");";
-            
+
             return code;
         };
 
         Language.Code.IterativeLoop.prototype.recode = function(indent){
-            
+
             var indent = indent || "";
             var innerIndent = indent + tab;
 
@@ -81,7 +83,7 @@ var JS = JS || {};
             }
 
             var iter = this.iterative + op + this.sequence.by;
-            
+
             var outCode = "";
 
             outCode += indent + "for(";
@@ -95,12 +97,12 @@ var JS = JS || {};
                 }
             }
             outCode += "}" + os.EOL;
-            
+
             return outCode;
         };
 
         Language.Code.IfStatement.prototype.recode = function(indent){
-            
+
             var code = "";
             var indent = indent || "";
             var innerIndent = indent + tab;
@@ -113,13 +115,72 @@ var JS = JS || {};
                 }
             }
             code += os.EOL + indent + "}" + os.EOL;
-            
-            
+
+
             return code;
         };
 
+        Language.Code.Fxn.prototype.recode = function(indent){
+
+            var indent = indent || "";
+            var innerIndent = indent + tab;
+            var code = "";
+
+            code += indent + "function(";
+            for(var i = 0; i < this.args.length; i++){
+                if(i === (this.args.length - 1)){
+                    code += indent + this.args[i].name;
+                }
+                else{
+                    code += indent + this.args[i].name + ", ";
+                }
+            }
+            code += indent + "){" + os.EOL;
+            for(var i = 0; i < this.inner.length; i++){
+                if(typeof(this.inner[i].recode) !== "undefined"){
+                    code += this.inner[i].recode(innerIndent);
+                    //console.log(JSON.stringify(this.codes[0][i]));
+                }
+            }
+            code += os.EOL + innerIndent + "return " + this.return.name + os.EOL;
+            code += indent + "}" + os.EOL;
+
+            return code;
+        }
+
+
+        //operator recodes
+
         Language.Operators.Concatenation.prototype.recode = function (indent) {
             return " + ";
+        }
+
+        Language.Operators.Addition.prototype.recode = function (indent) {
+            return " + ";
+        }
+
+        Language.Operators.Subtraction.prototype.recode = function (indent) {
+            return " - ";
+        }
+
+        Language.Operators.Multiplication.prototype.recode = function (indent) {
+            return " * ";
+        }
+
+        Language.Operators.Division.prototype.recode = function (indent) {
+            return " / ";
+        }
+
+        Language.Operators.Modulus.prototype.recode = function (indent) {
+            return " % ";
+        }
+
+        Language.Operators.Equivalency.prototype.recode = function (indent) {
+            return " == ";
+        }
+
+         Language.Operators.Not.prototype.recode = function (indent) {
+            return " ! ";
         }
     }
 })();
