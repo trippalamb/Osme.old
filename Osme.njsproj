@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4912907a-54c8-4261-8303-ba1660858fe9}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>Compiler\Compiler.js</StartupFile>
+    <WorkingDirectory>C:\Users\Tripp Lamb\Projects\Osme\</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodeExePath>node.exe</NodeExePath>
+    <ScriptArguments>ProjectEulerExamples\Osme\Problem1.osme ProjectEulerExamples\JS\Problem1.js</ScriptArguments>
+    <StartWebBrowser>True</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Compile Include="Compiler\Compiler.js" />
+    <Compile Include="Compiler\JSPlugin\js-write.js" />
+    <Compile Include="Compiler\OsmePlugin\expander.js" />
+    <Compile Include="Compiler\OsmePlugin\osme-operators.js" />
+    <Compile Include="Compiler\OsmePlugin\osme-plugin.js" />
+    <Compile Include="Compiler\UniversalTranslator.js" />
+    <Compile Include="ProjectEulerExamples\JS\Problem1.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Compiler\" />
+    <Folder Include="Compiler\JSPlugin\" />
+    <Folder Include="Compiler\OsmePlugin\" />
+    <Folder Include="Osme" />
+    <Folder Include="ProjectEulerExamples\" />
+    <Folder Include="ProjectEulerExamples\JS\" />
+    <Folder Include="ProjectEulerExamples\Osme\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProjectEulerExamples\Osme\Problem1.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem2.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem3.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem4.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem5a.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem5b.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem6.osme" />
+    <Content Include="ProjectEulerExamples\Osme\Problem7.osme" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

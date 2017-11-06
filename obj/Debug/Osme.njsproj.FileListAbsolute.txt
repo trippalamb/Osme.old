@@ -1,0 +1,2 @@
+C:\Users\Tripp Lamb\Projects\Osme\obj\Debug\Osme.njsprojResolveAssemblyReference.cache
+C:\Users\Tripp Lamb\Projects\Osme\bin\Microsoft.NodejsTools.WebRole.dll

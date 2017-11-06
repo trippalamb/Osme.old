@@ -37,13 +37,28 @@ var JS = JS || {};
             return code;
         };
 
-        Language.Code.Write.prototype.recode = function(){
+        Language.Code.Expression.prototype.recode = function (indent) {
+            var indent = indent || "";
+
+            if (this.structure === "atomic") {
+                return this.whole;
+            }
+            else {
+                var code = "";
+                code += this.args[0].recode();
+                code += this.operator.recode();
+                code += this.args[1].recode();
+            }
+
+        }
+
+        Language.Code.Write.prototype.recode = function(indent){
             
             var indent = indent || "";
 
             var code = "";
 
-            code += "console.log(" + this.statement + ");";
+            code += "console.log(" + this.statement.recode() + ");";
             
             return code;
         };
@@ -102,6 +117,10 @@ var JS = JS || {};
             
             return code;
         };
+
+        Language.Operators.Concatenation.prototype.recode = function (indent) {
+            return " + ";
+        }
     }
 })();
 

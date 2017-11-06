@@ -7,20 +7,24 @@ var Operators = require("./osme-operators.js");
     var os = require('os');
     var eol = new RegExp(os.EOL, "g");
 
-    Osme.Operators = 
+    Osme.Operators = require("./osme-operators.js");
 
     Osme.Code = {};
     
-    Osme.Code.Comment_Single = function(m){
-
+    Osme.Code.Comment_Single = function(content){
+        
+        var reg = /#(.*)/;
+        var m = content.match(reg);
         this.whole = m[0];
         this.text = m[1];
         this.structure = "comment";
 
     }
 
-    Osme.Code.Declaration = function(m){
+    Osme.Code.Declaration = function(content){
 
+        var reg = /(\w+)\s*::\s*(\w+)/;
+        var m = content.match(reg);
         this.whole = m[0];
         this.structure = "declaration"
         this.type = m[1];
@@ -28,8 +32,11 @@ var Operators = require("./osme-operators.js");
 
     }
 
-    Osme.Code.Assignment = function(m){//, decode){
-        
+    Osme.Code.Assignment = function(content){//, decode){
+
+        //TODO: make better code for these
+        var reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
+        var m = content.match(reg);
         this.whole = m[0];
         this.structure = "assignment";
         this.assignee = m[1];
@@ -39,31 +46,52 @@ var Operators = require("./osme-operators.js");
 
     }
 
-    Osme.Code.Expression = function(m){
-        
-        this.whole = m[0];
-        this.structure = "expression";
-        
-        this.args = [];
-        this.operator = "";
+    Osme.Code.Expression = function(content){
+
+        var reg = /(.*)([\.\+\-\*\/]+)(.*)/;
+        var m = content.match(reg);
+
+        //if (m !== null) {
+        //    if (m[2].trim() == ".") {
+        //        return m[1] + " + " + m[3];
+        //    }
+        //}
+        //return exp;
+
+        if (m !== null) {
+            this.whole = m[0];
+            this.structure = "expression";
+
+            this.args = [];
+            this.args[0] = new Osme.Code.Expression(m[1]);
+            this.args[1] = new Osme.Code.Expression(m[3]);
+            this.operator = m[2];
+        }
+        else {
+            this.structure = "atomic";
+            this.whole = m[0];
+        }
 
 
     }
 
-    Osme.Code.Write = function(m){
+    Osme.Code.Write = function(content){
 
+        var reg = /write\s+(.*)/;
+        var m = content.match(reg);
         this.whole = [0];
         this.structure = "write";
         //this.statement = m[1];
 
-        this.statement = Osme.expressionParse(m[1])
+        this.statement = new Osme.Code.Expression(m[1]);
     }
 
     //TODO: probably rename this to a generic loop idea
     //maybe variable dependent loop or something
-    Osme.Code.IterativeLoop = function(m, decode){
+    Osme.Code.IterativeLoop = function(content, decode){
     
-    
+        var reg = /do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/mi;
+        var m = content.match(reg);
         this.lines = getLines(m[0], eol);
     
         this.structure     = "do";
@@ -90,8 +118,11 @@ var Operators = require("./osme-operators.js");
         this.code          = decode(this.inner, Osme);
     }
     
-    Osme.Code.IfStatement = function(m, decode){
-    
+    Osme.Code.IfStatement = function(content, decode){
+
+        var reg = /if\s*\(([\s\S]*?)\)([\s\S]*?)(?:else\s*if\s*\(([\s\S]*?)\)([\s\S]*?))*(?:else([\s\S]*?))?end\s*if/mi;
+        var m = content.match(reg);
+
         for(var i = 0; i < m.length; i++){
             if(typeof(m[i]) === "undefined"){
                 m.splice(i, 1);
@@ -129,6 +160,15 @@ var Operators = require("./osme-operators.js");
         }
     
     }
+
+    Osme.Code.Function = function(content, decode) {
+        var reg = /fxn\s+(.+?)\(([\s\S]*?)\)\s*return\((.+?)\)([\s\S]*)end\s*fxn\s+(.*)/mi;
+        var m = content.match(reg);
+        this.whole = m[0];
+        this.args = m[1];
+        this.return = m[2];
+        this.inner = m[3];
+    }
     
     
     Osme.containerMatch = function(opening, content, decode){
@@ -136,14 +176,13 @@ var Operators = require("./osme-operators.js");
         var reg;
         var code = {};
         if(opening === "do"){
-            reg = /do\s+(\w)\s*(=\s*\d+\s*\.\.\.\s*\d+)([\s\S]*)end\s+do(.*)/mi;
-            m = content.match(reg);
-            code = new Osme.Code.IterativeLoop(m, decode);
+            code = new Osme.Code.IterativeLoop(content, decode);
         }
         else if(opening === "if"){
-            reg = /if\s*\(([\s\S]*?)\)([\s\S]*?)(?:else\s*if\s*\(([\s\S]*?)\)([\s\S]*?))*(?:else([\s\S]*?))?end\s*if/mi;
-            m = content.match(reg);
-            code = new Osme.Code.IfStatement(m, decode);
+            code = new Osme.Code.IfStatement(content, decode);
+        }
+        else if (opening === "fxn") {
+            code = new Osme.Code.Function(content, decode);
         }
         else{
             console.log("error in multiline match");
@@ -158,26 +197,16 @@ var Operators = require("./osme-operators.js");
         var reg;
         var code = {};
         if(atomName === "#"){
-            //TODO: these lines should be moved into contructor
-            reg = /#(.*)/;
-            m = line.match(reg);
-            code = new Osme.Code.Comment_Single(m);
+            code = new Osme.Code.Comment_Single(line);
         }
         else if(atomName === "::"){
-            reg = /(\w+)\s*::\s*(\w+)/;
-            m = line.match(reg);
-            code = new Osme.Code.Declaration(m);
+            code = new Osme.Code.Declaration(line);
         }
         else if(atomName === "="){
-            //TODO: make better code for these
-            reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
-            m = line.match(reg);
-            code = new Osme.Code.Assignment(m);
+            code = new Osme.Code.Assignment(line);
         }
         else if(atomName === "write"){
-            reg = /write\s+(.*)/;
-            m = line.match(reg);
-            code = new Osme.Code.Write(m);
+            code = new Osme.Code.Write(line);
         }
         else{
             console.log("error in atomic match");
@@ -190,22 +219,13 @@ var Operators = require("./osme-operators.js");
     Osme.expressionParse = function(exp){
         //var operStr = ".+-*/%";
 
-        var reg = /(.*)([\.\+\-\*\/]+)(.*)/;
-        var m = exp.match(reg);
-        console.log(m);
-
-        if(m !== null){
-            if(m[2].trim() == "."){
-                return m[1] + " + " + m[3];
-            }
-        }
-        return exp;
+        
 
     }
     
     Osme.getLineInfo = function(line){
     
-        var reg = /(do|if)/;
+        var reg = /(do|if|fxn)/;
         var m = line.match(reg);
         var lineInfo = {};
     

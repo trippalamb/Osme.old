@@ -6,6 +6,13 @@ var Operators = Operators || {};
     var eol = new RegExp(os.EOL, "g");
 
     //current valid values for type are "unary", "binary"
+
+    Operators.construct = function(opr) {
+        opr = opr.trim();
+        if (opr === ".") {
+            return new Operators.Concatenation();
+        }
+    }
     
     Operators.Concatenation = function(){
         this.str = ".";
