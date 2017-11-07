@@ -30,11 +30,15 @@ var Operators = require("./osme-operators.js");
 
     Osme.Code.Declaration = function(content){
 
-        var reg = /(\w+)\s*::\s*(\w+)/;
+        var reg = /(\w+)\s*::\s*(\w+)(?:\s*=\s*(.*))/;
         var m = content.match(reg);
         this.whole = m[0];
         this.structure = "declaration"
         this.var = new Osme.Code.Variable(m[1], m[2]);
+        if (typeof (m[3]) !== "undefined") {
+            this.expression = new Osme.Code.Expression(m[3]);
+        }
+        
         Osme.Variables.push(this.var);
 
     }
@@ -42,7 +46,6 @@ var Operators = require("./osme-operators.js");
     Osme.Code.Assignment = function(content){//, decode){
 
         //TODO: make better code for these
-        console.log(content);
         var reg = /^\s*(\w+)\s*([\+|\-|*|/|]?=)(.*)/;
         var m = content.match(reg);
         this.whole = m[0];
@@ -100,7 +103,7 @@ var Operators = require("./osme-operators.js");
         var m = content.match(reg);
         this.lines = getLines(m[0], eol);
 
-        this.structure     = "do";
+        this.structure     = "iterativeLoop";
         this.whole         = m[0];
         this.iterative     = m[1];
 
@@ -117,15 +120,22 @@ var Operators = require("./osme-operators.js");
             this.sequence.by = 1;
         }
 
+        this.inner = m[3];
+        this.extra = m[4];
 
-        this.inner         = m[3];
-        this.extra         = m[4];
+        this.code = decode(this.inner, Osme);
 
-        this.code          = decode(this.inner, Osme);
     }
 
-    Osme.Code.conditionalLoop = function(content, decode){
-        
+    Osme.Code.ConditionalLoop = function(content, decode){
+        var reg = /do\s + (?:while|until) \s *\((.*)\)([\s\S] *)end\s +do/mi;
+        var m = content.match(reg);
+        this.lines = getLines(m[0], eol);
+
+        this.structure = "conditionalLoop";
+        this.whole = m[0];
+        this.conditional = Expander.expand(m[1]);
+        this.code = decode(this.inner, Osme);
     }
 
     Osme.Code.IfStatement = function(content, decode){

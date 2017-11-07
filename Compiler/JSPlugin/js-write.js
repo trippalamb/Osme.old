@@ -22,7 +22,13 @@ var JS = JS || {};
             var indent = indent || "";
             var code = "";
 
-            code += indent + "var " + this.var + ";" + os.EOL;
+            code += indent + "var " + this.var;
+
+            if (typeof (this.expression) !== "undefined") {
+                code += " = " + this.expression;
+            }
+
+            code += ";" + os.EOL;
 
             return code;
         };
@@ -100,6 +106,25 @@ var JS = JS || {};
 
             return outCode;
         };
+
+        Language.Code.ConditionalLoop.prototype.recode = function (indent) {
+
+            var code = "";
+            var indent = indent || "";
+            var innerIndent = indent + tab;
+
+            code += indent + "while(";
+            code += this.conditional + "){" + os.EOL;
+            for (var i = 0; i < this.code.length; i++) {
+                if (typeof (this.code[i].recode) !== "undefined") {
+                    code += this.code[i].recode(innerIndent);
+                }
+            }
+            code += "}" + os.EOL;
+
+            return code;
+            
+        }
 
         Language.Code.IfStatement.prototype.recode = function(indent){
 
