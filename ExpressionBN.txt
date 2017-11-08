@@ -1,0 +1,14 @@
+
+<relop> ::= '=='|'<>'|'<'|'>'|'<='|'>='
+<addop> ::= '+'|'-'
+<mulop> ::= '*'|'/'
+
+<expression>    ::= <term> [<addop> <term>]*
+<term>          ::= <signed factor> [<mulop> factor]*
+<signed factor> ::= [<addop>] <factor>
+<factor>        ::= <number> | <variable> | <function> | (<expression>)
+
+
+<function> ::= <variable>([arg]*)
+<number>   ::= <integer>|<real>|<imaginary>
+<variable> ::= /[a-zA-Z_]\w*/

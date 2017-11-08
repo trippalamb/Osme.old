@@ -22,10 +22,10 @@ var JS = JS || {};
             var indent = indent || "";
             var code = "";
 
-            code += indent + "var " + this.var;
+            code += indent + "var " + this.var.name;
 
             if (typeof (this.expression) !== "undefined") {
-                code += " = " + this.expression;
+                code += " = " + this.expression.recode();
             }
 
             code += ";" + os.EOL;
@@ -123,7 +123,7 @@ var JS = JS || {};
             code += "}" + os.EOL;
 
             return code;
-            
+
         }
 
         Language.Code.IfStatement.prototype.recode = function(indent){
@@ -151,7 +151,7 @@ var JS = JS || {};
             var innerIndent = indent + tab;
             var code = "";
 
-            code += indent + "function(";
+            code += indent + "function " + this.name + "(";
             for(var i = 0; i < this.args.length; i++){
                 if(i === (this.args.length - 1)){
                     code += indent + this.args[i].name;

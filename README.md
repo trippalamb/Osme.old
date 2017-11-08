@@ -59,7 +59,7 @@ An expression is a series of one or more atoms modified by one or more operators
 if(a < b)
    ...
 end if
-```  
+```
 
 ### Native Type
 A native type is a basic variable type defined and contained within the programming language of Osme. These words are reserved keywords and are unable to be redefined throughout the execution of the program.
@@ -91,42 +91,42 @@ A native container type is a compound variable type defined and contained within
 A native operator is a symbol (defined internal to the Osme language) that represents a procedure to act upon one or more atoms to either return a new atom or to modify one or more of the argument atoms
 
 #### Mathematical Native Operator Comprehensive List
-| Symbol        | Name                      | example usage   |
-| ------------- |---------------------------|-----------------|
-| =             | assignment                | a = b           |
-| =>            | pointer assignment        | a => b          |
-| \+            | addition                  | a \+ b          |
-| \+\+          | simple increment          | a++             |
-| \+=           | complex increment         | a += b          |
-| \-            | addition                  | a -             |
-| \-\-          | simple decrement          | a--             |
-| \-=           | complex decrement         | a -= b          |
-| \*            | multiplication            | a \* b          |
-| \*=           | multiplicative assignment | a \*= b         |
-| \/            | division                  | a / b           |
-| \*=           | divisive assignment       | a /= b          |
-| \*\*          | exponent                  | a \*\* b        |
-| \/\/          | nth root                  | a \/\/ b        |
-| %             | modulus                   | a % b           |
-| ()            | parentheses               | a + (b - c)     |
-| ~             | smart parse               | ~a              |
-| ... [BY a]    | generated sequence        | a ... b by c    |
+| Symbol     | Name                      | example usage |
+| ---------- | ------------------------- | ------------- |
+| =          | assignment                | a = b         |
+| =>         | pointer assignment        | a => b        |
+| \+         | addition                  | a \+ b        |
+| \+\+       | simple increment          | a++           |
+| \+=        | complex increment         | a += b        |
+| \-         | addition                  | a -           |
+| \-\-       | simple decrement          | a--           |
+| \-=        | complex decrement         | a -= b        |
+| \*         | multiplication            | a \* b        |
+| \*=        | multiplicative assignment | a \*= b       |
+| /          | division                  | a / b         |
+| \*=        | divisive assignment       | a /= b        |
+| \*\*       | exponent                  | a \*\* b      |
+| //         | nth root                  | a \/\/ b      |
+| %          | modulus                   | a % b         |
+| ()         | parentheses               | a + (b - c)   |
+| ~          | smart parse               | ~a            |
+| ... [BY a] | generated sequence        | a ... b by c  |
 
 #### Comparison Native Operator Comprehensive List
-| Symbol        | Name                      | example usage       |
-| ------------- |---------------------------|---------------------|
-| ==            | equivalence               | a == b              |
-| !             | not                       | !a                  |
-| =!=           | not equivalent            | a =!= b             |
-| ~=            | truthy equivalence        | a ~= b              |
-| <             | less than                 | a < b               |
-| <=            | less than or equal to     | a <= b              |
-| \>            | greater than              | a \> b              |
-| \>=           | greater than or equal to  | a \>= b             |
-| a?b:c         | ternary                   | e = (a < b) ? c : d |
-| a<[=]b<[=]c   | between (less than)       | a < b <= c          |
-| a>[=]b>[=]c   | between (greater than)    | a >= b > c          |
-| ?:            | contained within          | a ?: b              |
+| Symbol      | Name                     | example usage       |
+| ----------- | ------------------------ | ------------------- |
+| ==          | equivalence              | a == b              |
+| \<\>        | not                      | \<\>a               |
+| \<\>        | not equivalent           | a \<\> b            |
+| ~=          | truthy equivalence       | a ~= b              |
+| <           | less than                | a < b               |
+| <=          | less than or equal to    | a <= b              |
+| \>          | greater than             | a \> b              |
+| \>=         | greater than or equal to | a \>= b             |
+| a?b:c       | ternary                  | e = (a < b) ? c : d |
+| a<[=]b<[=]c | between (less than)      | a < b <= c          |
+| a>[=]b>[=]c | between (greater than)   | a >= b > c          |
+| ?:          | contained within         | a ?: b              |
 
 
 
@@ -137,22 +137,22 @@ the osme language that allows for readable grammar, templating, or other misc
 uses
 
 #### Comprehensive List
-| Symbol        | Name                     | Notes           |
-| ------------- |--------------------------|-----------------|
-| \#            | inline comment           |                 |
-| \#\*  \*\#    | multiline comment        |                 |
-| []            | brackets                 | for array usage |
-| {}            | brace                    | for expansion templating |
-| &             | expansion and            | for expansion templating |
-| \|            | expansion or             | for expansion templating |
-| ,             | comma                    | for list separation |
-| ;             | semi-colon               | for list separation |
-| ""            | quotation marks          | for string literals |
-| ''            | single quotation marks   | for string literals |
-| $             | variable name escape     | for use within string literals|
-| .             | concatentation           |                            |
-| :             | field of                 |                            |
-| ::            | instance of              | for use with declaring variables|
+| Symbol     | Name                   | Notes                            |
+| ---------- | ---------------------- | -------------------------------- |
+| \#         | inline comment         |                                  |
+| \#\*  \*\# | multiline comment      |                                  |
+| []         | brackets               | for array usage                  |
+| {}         | brace                  | for expansion templating         |
+| &          | expansion and          | for expansion templating         |
+| \|         | expansion or           | for expansion templating         |
+| ,          | comma                  | for list separation              |
+| ;          | semi-colon             | for list separation              |
+| ""         | quotation marks        | for string literals              |
+| ''         | single quotation marks | for string literals              |
+| $          | variable name escape   | for use within string literals   |
+| .          | concatentation         |                                  |
+| :          | field of               |                                  |
+| ::         | instance of            | for use with declaring variables |
 
 ### Reserved Keyword
 A reserved keyword is a word that has meaning internal to the language Osme
@@ -198,49 +198,49 @@ type[, options]* :: name
 ### Number
 regex: 
 ```javascript
-/[<operators>\s]([\+-])?(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.]))(?:i(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.])))?(?=[<operators>\s])/g
-```  
+/([\+-])?(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.]))(i)?/
+```
 
 ### Non-Imaginary Number
 regex: 
 ```javascript
-/\b(\d+(?:[\.][\d]*)?)\b/g
-```  
+/([\+-])?(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.]))/
+```
 
 ### Integer
 regex: 
 ```javascript
 /[<operators>\s](\d+)(?![i\.])\b/g
-```  
+```
 
 ### Real
 regex: 
 ```javascript
 /()/g
-```  
+```
 
-### Complex
+### Imaginary
 regex: 
 ```javascript
-/()/g
-```  
+/([\+-])?(?:(\d+(?:[\.][\d]*)?)|([\.][\d]+)|(\d+[\.]))(i)/
+```
 
 ### Character
 regex: 
 ```javascript
 /()/g
-```  
+```
 ### Regex
 regex: 
 ```javascript
 /()/g
-```  
+```
 
 ### Boolean
 regex: 
 ```javascript
 /()/g
-```  
+```
 
 ## Definitions of Container|Compound Types
 ### Type (object)
@@ -384,111 +384,111 @@ regex:
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Pointer Assignment Operator `=>`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Addition Operator `+`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Simple Increment Operator `++`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Complex Increment Operator `+=`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Subtraction Operator `-`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Simple Decrement Operator `--`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Complex Decrement Operator `-=`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Mutiplication Operator `*`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Multiplicative Assignment Operator `*=`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Division Operator `/`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Divisive Assignment Operator `/=`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Exponent Operator `**`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 
 ### nth Root Operator `//`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Modulus Operator `%`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Parentheses Operator `()`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 ### Smart Parse Operator `~`
 regex: 
 ```javascript
 /()/gi
-```  
+```
 
 
 ### Generated Sequence Operator `...`
 regex: 
 ```javascript
 /(\d+(?:[\.][\d]*)?)\s*\.\.\.\s*(\d+(?:[\.][\d]*)?)\s*(?:by\s*(\d+(?:[\.][\d]*)?))?/gi
-```  
+```
 ## Definitions of Syntax Operators
 
 ### Comment (Single Line) `#`

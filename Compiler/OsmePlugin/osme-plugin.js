@@ -30,7 +30,7 @@ var Operators = require("./osme-operators.js");
 
     Osme.Code.Declaration = function(content){
 
-        var reg = /(\w+)\s*::\s*(\w+)(?:\s*=\s*(.*))/;
+        var reg = /(\w+)\s*::\s*(\w+)(?:\s*=\s*(.*))?/;
         var m = content.match(reg);
         this.whole = m[0];
         this.structure = "declaration"
@@ -38,7 +38,7 @@ var Operators = require("./osme-operators.js");
         if (typeof (m[3]) !== "undefined") {
             this.expression = new Osme.Code.Expression(m[3]);
         }
-        
+
         Osme.Variables.push(this.var);
 
     }
@@ -62,13 +62,6 @@ var Operators = require("./osme-operators.js");
         var reg = /(.*)([\.\+\-\*\/]+)(.*)/;
         var m = content.match(reg);
 
-        //if (m !== null) {
-        //    if (m[2].trim() == ".") {
-        //        return m[1] + " + " + m[3];
-        //    }
-        //}
-        //return exp;
-
         if (m !== null) {
             this.whole = m[0];
             this.structure = "expression";
@@ -83,7 +76,6 @@ var Operators = require("./osme-operators.js");
             this.structure = "atomic";
             this.whole = content;
         }
-
 
     }
 
@@ -128,14 +120,14 @@ var Operators = require("./osme-operators.js");
     }
 
     Osme.Code.ConditionalLoop = function(content, decode){
-        var reg = /do\s + (?:while|until) \s *\((.*)\)([\s\S] *)end\s +do/mi;
+        var reg = /do\s+(?:while|until)\s*\((.*)\)([\s\S]*)end\s+do/mi;
         var m = content.match(reg);
         this.lines = getLines(m[0], eol);
 
         this.structure = "conditionalLoop";
         this.whole = m[0];
         this.conditional = Expander.expand(m[1]);
-        this.code = decode(this.inner, Osme);
+        this.code = decode(m[2], Osme);
     }
 
     Osme.Code.IfStatement = function(content, decode){
@@ -189,7 +181,6 @@ var Operators = require("./osme-operators.js");
         this.args = parseArguments(m[2]);
         this.return = parseReturn(m[3]);
         this.inner = decode(m[4], Osme);
-        console.log(JSON.stringify(this.args));
 
         function parseArguments(argList){
             var args = argList.split(',');
@@ -198,7 +189,6 @@ var Operators = require("./osme-operators.js");
                 var pieces = args[i].split(" ");
                 vars.push(new Osme.Code.Variable(pieces[0], pieces[1]));
             }
-            //console.log(JSON.stringify(vars));
             return vars;
         }
 
@@ -215,6 +205,9 @@ var Operators = require("./osme-operators.js");
         var code = {};
         if(opening === "do"){
             code = new Osme.Code.IterativeLoop(content, decode);
+        }
+        if(opening === "do while"){
+            code = new Osme.Code.ConditionalLoop(content, decode);
         }
         else if(opening === "if"){
             code = new Osme.Code.IfStatement(content, decode);
@@ -259,7 +252,7 @@ var Operators = require("./osme-operators.js");
 
     Osme.getLineInfo = function(line){
 
-        var reg = /(do|if|fxn)/;
+        var reg = /(do\s*(?:while)?|if|fxn)/;
         var m = line.match(reg);
         var lineInfo = {};
 
