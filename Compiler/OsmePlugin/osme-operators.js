@@ -7,26 +7,44 @@ var Operators = Operators || {};
 
     //current valid values for type are "unary", "binary"
 
-    Operators.construct = function(opr) {
+    Operators.construct = function(opr, type) {
 
         opr = opr.trim();
         switch(opr) {
             case ".":
                 return new Operators.Concatenation();
+                break;
             case "+":
-                return new Operators.Addition();
+                if (type === "unary") {
+                    return new Operators.Positive();
+                }
+                else if(type === "binary"){
+                    return new Operators.Addition();
+                }
+                break;
             case "-":
-                return new Operators.Subtraction();
+                if (type === "unary") {
+                    return new Operators.Negative();
+                }
+                else if (type === "binary") {
+                    return new Operators.Subtraction();
+                }
+                break;
             case "*":
                 return new Operators.Multiplication();
+                break;
             case "/":
                 return new Operators.Division();
+                break;
             case "%":
                 return new Operators.Modulus();
+                break;
             case "==":
                 return new Operators.Equivalency();
+                break;
             case "<>":
                 return new Operators.Not();
+                break;
             default:
                 console.log("errors in osme operator constructor");
         }

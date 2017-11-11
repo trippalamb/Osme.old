@@ -2,6 +2,7 @@
 <relop> ::= '=='|'<>'|'<'|'>'|'<='|'>='
 <addop> ::= '+'|'-'
 <mulop> ::= '*'|'/'
+<powop> ::= '**'|'//'
 
 <expression>    ::= <term> [<addop> <term>]*
 <term>          ::= <signed factor> [<mulop> factor]*

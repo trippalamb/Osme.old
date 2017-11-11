@@ -22,8 +22,12 @@
     <Compile Include="Compiler\Compiler.js" />
     <Compile Include="Compiler\JSPlugin\js-write.js" />
     <Compile Include="Compiler\OsmePlugin\expander.js" />
+    <Compile Include="Compiler\OsmePlugin\expression.js" />
     <Compile Include="Compiler\OsmePlugin\osme-operators.js" />
     <Compile Include="Compiler\OsmePlugin\osme-plugin.js" />
+    <Compile Include="Compiler\OsmePlugin\Utilities.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Compiler\UniversalTranslator.js" />
     <Compile Include="ProjectEulerExamples\JS\Problem1.js" />
   </ItemGroup>
@@ -31,12 +35,15 @@
     <Folder Include="Compiler\" />
     <Folder Include="Compiler\JSPlugin\" />
     <Folder Include="Compiler\OsmePlugin\" />
+    <Folder Include="Examples\" />
     <Folder Include="Osme" />
     <Folder Include="ProjectEulerExamples\" />
     <Folder Include="ProjectEulerExamples\JS\" />
     <Folder Include="ProjectEulerExamples\Osme\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Examples\ExpressionTesting.osme" />
+    <Content Include="ExpressionBN.txt" />
     <Content Include="ProjectEulerExamples\Osme\Problem1.osme" />
     <Content Include="ProjectEulerExamples\Osme\Problem2.osme" />
     <Content Include="ProjectEulerExamples\Osme\Problem3.osme" />
