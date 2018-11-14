@@ -95,6 +95,7 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 | ---------- | ------------------------- | ------------- |
 | =          | assignment                | a = b         |
 | =>         | pointer assignment        | a => b        |
+| :=         | defined as assignment     | a := b + c    |
 | \+         | addition                  | a \+ b        |
 | \+\+       | simple increment          | a++           |
 | \+=        | complex increment         | a += b        |
@@ -116,13 +117,15 @@ A native operator is a symbol (defined internal to the Osme language) that repre
 | Symbol      | Name                     | example usage       |
 | ----------- | ------------------------ | ------------------- |
 | ==          | equivalence              | a == b              |
-| \<\>        | not                      | \<\>a               |
-| \<\>        | not equivalent           | a \<\> b            |
+| !           | not                      | !a                  |
+| !=          | not equivalent           | a != b              |
 | ~=          | truthy equivalence       | a ~= b              |
 | <           | less than                | a < b               |
 | <=          | less than or equal to    | a <= b              |
 | \>          | greater than             | a \> b              |
 | \>=         | greater than or equal to | a \>= b             |
+| &&          | and                      | a && b              |
+| \|\|        | or                       | a \|\| b            |
 | a?b:c       | ternary                  | e = (a < b) ? c : d |
 | a<[=]b<[=]c | between (less than)      | a < b <= c          |
 | a>[=]b>[=]c | between (greater than)   | a >= b > c          |
@@ -288,18 +291,18 @@ int[5] :: x = [1...5 by 1]
 
 do the same as above except 0 index the array
 ```
-int[0:4] :: x = [1...5]
+int[0...4] :: x = [1...5]
 ```
 
 define x to be an array of real numbers of length 10 (indexed from -5 to 5) that go from values -10.0 to 10.0 incrementing by 2.0
 ```
-real[-5:5] :: x = [-10.0 ... 10.0 by 2.0]
-real[-5:5] :: x = ~[-10 ... 10 by 2]
+real[-5...5] :: x = [-10.0 ... 10.0 by 2.0]
+real[-5...5] :: x = ~[-10 ... 10 by 2]
 ```
 
 define x to be an integer array of variable length that the values increment from 1 to 9 by 2 (ie. 1,3,5,7,9)
 ```
-int[:] :: x = [1...9 by 2]
+int[] :: x = [1...9 by 2]
 ```
 
 define x to be the sequence of y followed by the sequence of z where y and z are arrays of the same type
@@ -312,18 +315,18 @@ define x to be a integer 3x3 2-dimensional array that increments from 1 to 9 as 
 ```
                                             y1 y2 y3 
 int[3,3] :: x = [1...9]                  # |1, 4, 7| x1
-int[:,:] :: x = [1...]                   # |2, 5, 8| x2
+int[,] :: x = [1...]                   # |2, 5, 8| x2
 int[3,3] :: x = [1,2,3;4,5,6;7,8,9]      # |3, 6, 9| x3
 
 int[3,3] :: x
-x[:,1] = [1,2,3]
-x[:,2] = [4,5,6]
-x[:,3] = [7,8,9]
+x[...,1] = [1,2,3]
+x[...,2] = [4,5,6]
+x[...,3] = [7,8,9]
 
 int[3,3] :: x
-x[1,:] = [1,4,7]
-x[2,:] = [2,5,8]
-x[3,:] = [3,6,9]
+x[1,...] = [1,4,7]
+x[2,...] = [2,5,8]
+x[3,...] = [3,6,9]
 ```
 ### Function
 regex: 
